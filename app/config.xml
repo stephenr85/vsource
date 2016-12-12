@@ -1,0 +1,79 @@
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.vesnaus.com.vsource" versionCode = "6" version="1.3.3">
+  <name>VSource</name>
+  <description>Your North American Communications Tool.</description>
+  <author href="http://phonegap.com" email="support@phonegap.com">PhoneGap Team</author>
+  <content src="index.html"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="AllowInlineMediaPlayback" value="true" />
+  <plugin name="cordova-plugin-battery-status" source="npm"/>
+  <plugin name="cordova-plugin-camera" source="npm"/>
+  <plugin name="cordova-plugin-media-capture" source="npm"/>
+  <plugin name="cordova-plugin-console" source="npm"/>
+  <plugin name="cordova-plugin-contacts" source="npm"/>
+  <plugin name="cordova-plugin-device" source="npm"/>
+  <plugin name="cordova-plugin-device-motion" source="npm"/>
+  <plugin name="cordova-plugin-device-orientation" source="npm"/>
+  <plugin name="cordova-plugin-dialogs" source="npm"/>
+  <plugin name="cordova-plugin-file" source="npm"/>
+  <plugin name="cordova-plugin-file-transfer" source="npm"/>
+  <plugin name="cordova-plugin-geolocation" source="npm"/>
+  <plugin name="cordova-plugin-globalization" source="npm"/>
+  <plugin name="cordova-plugin-inappbrowser" source="npm"/>
+  <plugin name="cordova-plugin-media" source="npm"/>
+  <plugin name="cordova-plugin-network-information" source="npm"/>
+  <plugin name="cordova-plugin-splashscreen" source="npm"/>
+  <plugin name="cordova-plugin-statusbar" source="npm"/>
+  <plugin name="cordova-plugin-vibration" source="npm"/>
+  <plugin name="cordova-plugin-whitelist" source="npm"/>
+  <gap:plugin name="cordova-plugin-googleplus" source="npm">
+  <param name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.206490215511-uv0tp6gj7visbkdj2mt75p77jqk4ms2f" />
+</gap:plugin>
+
+<preference name="StatusBarOverlaysWebView" value="false" />
+<preference name="StatusBarBackgroundColor" value="#000000"/>
+<preference name="StatusBarStyle" value="lightcontent" />
+<preference name="SplashScreenDelay" value="3000" />
+
+
+  <icon src="icon.png"/>
+<icon platform="ios" src="res/icons/ios/icon-small.png" width="29" height="29" />
+<icon platform="ios" src="res/icons/ios/icon-small-2x.png" width="58" height="58" />
+<icon platform="ios" src="res/icons/ios/icon-40.png" width="40" height="40" />
+<icon platform="ios" src="res/icons/ios/icon-40-2x.png" width="80" height="80" />
+<icon platform="ios" src="res/icons/ios/icon-50.png" width="50" height="50" />
+<icon platform="ios" src="res/icons/ios/icon-50-2x.png" width="100" height="100" />
+<icon platform="ios" src="res/icons/ios/icon.png" width="57" height="57" />
+<icon platform="ios" src="res/icons/ios/icon-2x.png" width="114" height="114" />
+<icon platform="ios" src="res/icons/ios/icon-60.png" width="60" height="60" />
+<icon platform="ios" src="res/icons/ios/icon-60-2x.png" width="120" height="120" />
+<icon platform="ios" src="res/icons/ios/icon-60-3x.png" width="180" height="180" />
+<icon platform="ios" src="res/icons/ios/icon-72.png" width="72" height="72" />
+<icon platform="ios" src="res/icons/ios/icon-72-2x.png" width="144" height="144" />
+<icon platform="ios" src="res/icons/ios/icon-76.png" width="76" height="76" />
+<icon platform="ios" src="res/icons/ios/icon-76-2x.png" width="152" height="152" />
+
+<splash platform="ios" src="res/screens/ios/screen-iphone-portrait.png" width="320" height="480" />
+<splash platform="ios" src="res/screens/ios/screen-iphone-portrait-2x.png" width="640" height="960" />
+<splash platform="ios" src="res/screens/ios/screen-iphone-portrait-568h-2x.png" width="640" height="1136" />
+<splash platform="ios" src="res/screens/ios/screen-iphone-portrait-667h.png" width="750" height="1334" />
+<splash platform="ios" src="res/screens/ios/screen-iphone-portrait-736h.png" width="1242" height="2208" />
+<splash platform="ios" src="res/screens/ios/screen-ipad-portrait.png" width="768" height="1024" />
+<splash platform="ios" src="res/screens/ios/screen-ipad-portrait-2x.png" width="1536" height="2048" />
+
+
+  <allow-navigation href="*" />
+  <access origin="*"/>
+  <allow-intent href="http://*/*"/>
+  <allow-intent href="https://*/*"/>
+  <allow-intent href="tel:*"/>
+  <allow-intent href="sms:*"/>
+  <allow-intent href="mailto:*"/>
+  <allow-intent href="geo:*"/>
+  <platform name="android">
+    <allow-intent href="market:*"/>
+  </platform>
+  <platform name="ios">
+    <allow-intent href="itms:*"/>
+    <allow-intent href="itms-apps:*"/>
+  </platform>
+</widget>
