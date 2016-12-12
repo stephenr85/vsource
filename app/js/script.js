@@ -2,8 +2,8 @@
 (function($){
 
 	vsource = window.vsource = {};
-	//vsource.apiUrl = 'http://vesnaus.com/vsource';
-	vsource.apiUrl = '';
+	vsource.apiUrl = 'http://vesnaus.com/vsource';
+	//vsource.apiUrl = '';
 
 
 	document.addEventListener("deviceready", onDeviceReady, false);
