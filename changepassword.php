@@ -2,9 +2,9 @@
 <?php
 
 	require_once("connections.php");
-	$email = mysql_escape_string($_POST['emailcode']);
-	$tempcode = mysql_escape_string($_POST['tempcode']);
-	$password = mysql_escape_string($_POST['password']);
+	$email = mysql_real_escape_string($_POST['emailcode']);
+	$tempcode = mysql_real_escape_string($_POST['tempcode']);
+	$password = mysql_real_escape_string($_POST['password']);
 	
 	if ((isset($_POST["newpswd"])) && ($_POST["newpswd"] == 1) && $tempcode) {
 	
