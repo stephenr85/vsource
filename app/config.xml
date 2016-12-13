@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.vesnaus.com.vsource" versionCode = "6" version="1.3.3">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.vesnaus.com.vsource" versionCode = "6" version="1.4.0">
   <name>VSource</name>
   <description>Your North American Communications Tool.</description>
   <author href="http://phonegap.com" email="support@phonegap.com">PhoneGap Team</author>
