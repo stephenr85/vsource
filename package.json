@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/incitedigital/vsource",
   "devDependencies": {
+    "cordova": "^6.4.0",
     "gulp": "latest",
     "gulp-clean-css": "^2.2.2",
     "gulp-coffee": "latest",
@@ -25,6 +26,8 @@
     "gulp-connect": "latest",
     "gulp-sass": "latest",
     "gulp-uglify": "latest",
-    "gulp-util": "latest"
+    "gulp-util": "latest",
+    "ios-sim": "^5.0.13",
+    "phonegap": "^6.4.2"
   }
 }
