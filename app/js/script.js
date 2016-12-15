@@ -6,8 +6,8 @@
 	//vsource.apiUrl = '';
 	vsource.logout = function(page){
 		if(!arguments.length) page = '#splash';
-		$.cookie('vsource_auth_group', null);
-		$.cookie('vsource_auth', null);
+		$.cookie('vsource_auth_group', '');
+		$.cookie('vsource_auth', '');
 		if(page) $.mobile.changePage(page);
 		return this;
 	};
