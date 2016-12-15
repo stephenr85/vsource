@@ -19,7 +19,7 @@ gulp.task('data', function(){
 	gulp.src('../app/*.{xml,png}')
    .pipe(gulp.dest(outputDir))
 
-	gulp.src('../app/res/*')
+	gulp.src('../app/res/**')
    .pipe(gulp.dest(outputDir+'/res'))
 
 	return gulp.src('../app/data/*')
