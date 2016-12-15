@@ -4,6 +4,13 @@
 	vsource = window.vsource = {};
 	vsource.apiUrl = 'http://vesnaus.com/vsource';
 	//vsource.apiUrl = '';
+	vsource.logout = function(page){
+		if(!arguments.length) page = '#splash';
+		$.cookie('vsource_auth_group', null);
+		$.cookie('vsource_auth', null);
+		if(page) $.mobile.changePage(page);
+		return this;
+	};
 
 	vsource.setAuthToken = function(token){
 		$.cookie('vsource_auth', token);
@@ -15,6 +22,8 @@
 		        xhr.setRequestHeader("Authorization","Token token=\"" + vsource.authToken + "\"");
 		    }
 		});
+		this.authToken = token;
+		return this;
 	};
 
 	vsource.getAuthToken = function(){
@@ -25,6 +34,7 @@
 
 	vsource.setAuthGroup = function(groupID){
 		$.cookie('vsource_auth_group', groupID);
+		return this;
 	};
 	vsource.getAuthGroup = function(){
 		return $.cookie('vsource_auth_group');
@@ -56,16 +66,19 @@
 	
 	$(document).on('click', '[href="#splash"]', function(){
 		//Logout
-		$.cookie('vsource_auth_group', null);
-		$.cookie('vsource_auth_token', null);
+		vsource.logout(null);
 	});
 
-	$(document).ajaxError(function(evt, xhr, settings, thrownError){
-		console.log('ajax error', arguments);
-		if(xhr.status == 403){
-			alert('Your session is no longer valid. Please login again.');
-			$.mobile.changePage('#splash');
+	$(document).ajaxError(function(evt, xhr, settings, thrownError){		
+		var isVsourceRequest = (vsource.apiUrl.length && settings.url.indexOf(vsource.apiUrl) >= 0) || settings.url[0] == '/';
+		console.log('ajax error', isVsourceRequest, arguments);
+		if(isVsourceRequest){
+			if(xhr.status == 401 || xhr.status == 403){
+				alert('Your session is no longer valid. Please login again.');
+				$.mobile.changePage('#splash');
+			}
 		}
+		
 	});
 	
 

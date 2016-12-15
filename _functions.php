@@ -59,7 +59,7 @@ class VSourceApp {
 		$is_authed = $user && $user['email'] == $detoken[1];
 
 		if(!$is_authed && $change_response_header){
-			header('HTTP/1.0 403 Forbidden');
+			http_response_code(401);
 		}
 
 		return $is_authed;

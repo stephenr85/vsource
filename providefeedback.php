@@ -2,7 +2,7 @@
 require_once('_init.php');
 
 $user = vsource()->getCurrentUser();
-if(!$user) die('Forbidden');
+if(!$user) {http_response_code(401); die('Forbidden');}
 
 $feedback = $_SAFE['feedbackform'];
 //$feedbackemail = $_SAFE['feedbackemail'];
