@@ -1,27 +1,29 @@
-<?php header("Access-Control-Allow-Origin: *"); ?>
-<?php
+<?php 
 
-	require_once("connections.php");
-	$email = mysql_real_escape_string($_POST['emailcode']);
-	$tempcode = mysql_real_escape_string($_POST['tempcode']);
-	$password = mysql_real_escape_string($_POST['password']);
-	
-	if ((isset($_POST["newpswd"])) && ($_POST["newpswd"] == 1) && $tempcode) {
-	
-		$query = "UPDATE tbl_user SET password='$password' WHERE email = '$email' AND password = '$tempcode'";
+require_once("_init.php");
 
-	    mysql_select_db($database_dbc, $dbc);
-		$result = mysql_query($query, $dbc) or die(mysql_error()); 
-		$totalRows_Recordset1 = mysql_affected_rows();
-	}	
+$email = $_SAFE['emailcode'];
+$tempcode = $_SAFE['tempcode'];
+$password = $_SAFE['password'];
 
-	if ($totalRows_Recordset1 == 0) {
-		echo 0;
-	}
-	
-	
-	else {
-	//guest
-		echo 1;
-	}
+if ((isset($_POST["newpswd"])) && ($_POST["newpswd"] == 1) && $tempcode) {
+
+	$tempcode = vsource_encrypt($tempcode);
+	$password = vsource_encrypt($password);
+
+	$query = "UPDATE tbl_user SET password='$password' WHERE email = '$email' AND password = '$tempcode'";
+
+	$result = mysql_query($query, $dbc) or die(mysql_error()); 
+	$totalRows_Recordset1 = mysql_affected_rows();
+}
+
+if ($totalRows_Recordset1 == 0) {
+	echo 0;
+}
+
+
+else {
+//guest
+	echo 1;
+}
 ?>

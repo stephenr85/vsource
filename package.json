@@ -19,6 +19,7 @@
   "homepage": "https://github.com/incitedigital/vsource",
   "devDependencies": {
     "cordova": "^6.4.0",
+    "cordova-plugin-geolocation": "^2.4.1",
     "cordova-plugin-settings-hook": "^0.2.5",
     "gulp": "latest",
     "gulp-clean-css": "^2.2.2",

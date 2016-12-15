@@ -1,11 +1,15 @@
-<?php header("Access-Control-Allow-Origin: *"); ?>
-
 <?php 
+require_once('_init.php');
 
-$idea = $_POST['idea'];
-$problem = $_POST['problem'];
-$solve = $_POST['solve'];
-$email = $_POST['shareemail'];
+$user = vsource()->getCurrentUser();
+if(!$user) die('Forbidden');
+
+
+$idea = $_SAFE['idea'];
+$problem = $_SAFE['problem'];
+$solve = $_SAFE['solve'];
+//$email = $_SAFE['shareemail'];
+$email = $user['email'];
 
 
 $to = 'matt.demo@veolia.com';
@@ -19,10 +23,10 @@ $message .= '<tr><td colspan="2"><!--enter image here --></td></tr>';
 $message .= '</table>';
 $message .= '<table width="650px" style="background-color:#fff; border-collapse: collapse;" align="center" cellpadding="10">';
 $message .= "<tr><td colspan=\"2\">The following idea was submitted with VSource. </td></tr>";
-$message .= "<tr><td width='30%'><strong>Employee Email:</strong> </td><td width='70%'>" . strip_tags($_POST['shareemail']) . "</td></tr>";
-$message .= "<tr><td><strong>Name of your idea:</strong> </td><td>" . strip_tags($_POST['idea']) . "</td></tr>";
-$message .= "<tr><td><strong>Problem it solves:</strong> </td><td>" . strip_tags($_POST['problem']) . "</td></tr>";
-$message .= "<tr><td><strong>Your idea to solve it:</strong> </td><td>" . strip_tags($_POST['solve']) . "</td></tr>";
+$message .= "<tr><td width='30%'><strong>Employee Email:</strong> </td><td width='70%'>" . $email . "</td></tr>";
+$message .= "<tr><td><strong>Name of your idea:</strong> </td><td>" . $idea . "</td></tr>";
+$message .= "<tr><td><strong>Problem it solves:</strong> </td><td>" . $problem . "</td></tr>";
+$message .= "<tr><td><strong>Your idea to solve it:</strong> </td><td>" . $solve . "</td></tr>";
 
 $message .= "</table>";
 $message .= "</body></html>";

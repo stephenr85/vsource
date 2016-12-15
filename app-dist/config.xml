@@ -27,8 +27,9 @@
   <plugin name="cordova-plugin-whitelist" source="npm"/>
   <plugin name="cordova-plugin-settings-hook" source="npm"/>
   <gap:plugin name="cordova-plugin-googleplus" source="npm">
-  <param name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.206490215511-uv0tp6gj7visbkdj2mt75p77jqk4ms2f" />
-</gap:plugin>
+    <param name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.206490215511-uv0tp6gj7visbkdj2mt75p77jqk4ms2f" />
+  </gap:plugin>
+  <gap:plugin name="org.apache.cordova.geolocation" />
 
 <preference name="StatusBarOverlaysWebView" value="false" />
 <preference name="StatusBarBackgroundColor" value="#000000"/>
@@ -75,7 +76,7 @@
   </platform>
   <platform name="ios">
     <allow-intent href="itms:*"/>
-    <allow-intent href="itms-apps:*"/>
+    <allow-intent href="itms-apps:*"/>    
     <config-file parent="NSCalendarsUsageDescription" platform="ios" target="*-Info.plist">
         <string>VSource would like to create a calendar event.</string>
     </config-file>
@@ -84,6 +85,12 @@
     </config-file>
     <config-file parent="NSBluetoothPeripheralUsageDescription" platform="ios" target="*-Info.plist">
         <string>VSource would like to use bluetooth.</string>
+    </config-file>
+    <config-file parent="NSLocationUsageDescription" platform="ios" target="*-Info.plist">
+        <string>VSource would like to access your location.</string>
+    </config-file>
+    <config-file parent="NSLocationWhenInUseUsageDescription" platform="ios" target="*-Info.plist">
+        <string>VSource would like to access your location when running and displayed.</string>
     </config-file>
   </platform>
 </widget>

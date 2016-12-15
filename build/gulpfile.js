@@ -31,6 +31,7 @@ gulp.task('js1', function() {
   gulp.src(['../app/js/index.js',
   	'../app/js/jquery.js',
   	'../app/js/jquery-ui.js',
+  	'../app/bower_components/jquery-cookie/jquery.cookie.js',
   	'../app/js/bootstrap.min.js',
   	'../app/js/jquery.mobile-1.4.5.min.js',
   	'../app/js/handlebars.min.js',
@@ -41,6 +42,7 @@ gulp.task('js1', function() {
   	//'../app/js/platform.js',
   	'../app/js/twitsFetcher.js',
   	'../app/js/libs/pretty-json-min.js',
+  	'../app/js/search.js',
   	'../app/js/script.js',
   	'../app/js/lity.min.js',
 

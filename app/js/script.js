@@ -5,6 +5,69 @@
 	vsource.apiUrl = 'http://vesnaus.com/vsource';
 	//vsource.apiUrl = '';
 
+	vsource.setAuthToken = function(token){
+		$.cookie('vsource_auth', token);
+		$.ajaxSetup({
+			beforeSend: function (xhr) {
+				console.log(typeof(this.data));
+				if(!this.data) this.data = 'auth=' + vsource.authToken;
+				else if (typeof(this.data) === 'string') this.data += '&auth=' + vsource.authToken;
+		        xhr.setRequestHeader("Authorization","Token token=\"" + vsource.authToken + "\"");
+		    }
+		});
+	};
+
+	vsource.getAuthToken = function(){
+		return $.cookie('vsource_auth');
+	};
+	vsource.authToken = vsource.getAuthToken();
+
+
+	vsource.setAuthGroup = function(groupID){
+		$.cookie('vsource_auth_group', groupID);
+	};
+	vsource.getAuthGroup = function(){
+		return $.cookie('vsource_auth_group');
+	};
+
+	vsource.gotoUserHome = function(authGroup){
+		if(!arguments.length){
+			authGroup = vsource.getAuthGroup();
+		}
+		if(authGroup == 1){
+			$.mobile.changePage('#home');
+		}else if(authGroup == 2){
+			$.mobile.changePage('#guesthome');
+		}else{
+			$.mobile.changePage('#');
+		}
+	};
+
+	//check for cookie
+	//set auth headers
+	//send user to default page
+	if(vsource.authToken){
+		vsource.setAuthToken(vsource.authToken);
+
+		$(document).ready(function(){
+			vsource.gotoUserHome();
+		});
+	}
+	
+	$(document).on('click', '[href="#splash"]', function(){
+		//Logout
+		$.cookie('vsource_auth_group', null);
+		$.cookie('vsource_auth_token', null);
+	});
+
+	$(document).ajaxError(function(evt, xhr, settings, thrownError){
+		console.log('ajax error', arguments);
+		if(xhr.status == 403){
+			alert('Your session is no longer valid. Please login again.');
+			$.mobile.changePage('#splash');
+		}
+	});
+	
 
 	document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -86,6 +149,7 @@
 	$("p.rssincl-itemfeedtitle:contains(News)").text("VNA Newsroom");
 	$("p.rssincl-itemfeedtitle:contains(Planet)").text("Planet North America");
 
+	
 
 
 	var random = Math.floor(100000 + Math.random() * 900000);
@@ -123,15 +187,18 @@
 		$.post(vsource.apiUrl + '/signin.php', regdetails, function(data){
 				if (data == 0) {
 					alert('Your login information is incorrect!');
+				}else{
+					data = data.split(';');
+					vsource.setAuthGroup(data[0]);
+					vsource.setAuthToken(data[1]);
+
+					if(data[0] == 1){
+						$.mobile.changePage( "#home");	
+					}else{
+						$.mobile.changePage('#guesthome');
+					}
 				}
-				
-				else if (data == 1) {
-					$.mobile.changePage( "#home");			
-				}
-				else if (data == 2) {
-					$.mobile.changePage( "#guesthome");
-				}	
-				;
+
 			})
 	});	
 
@@ -312,19 +379,19 @@
 		
 
 	//Display submit button when one of the form fields are entered	
-	$('.idea').blur(function(){
+	$(document).on('blur', '.idea', function(){
 
 		$('.submitbutton').fadeIn();
 
 	}); 
 
-	$('.problem').blur(function(){
+	$(document).on('blur', '.problem', function(){
 
 		$('.submitbutton').fadeIn();
 
 	}); 
 		
-	$('.solve').blur(function(){
+	$(document).on('blur', '.solve', function(){
 
 		$('.submitbutton').fadeIn();
 
@@ -399,7 +466,12 @@
 	  executeRequest(request);
 	}
 
-	searchListByKeyword('snippet', 25, 'veolianorthamerica', 'video');
+	$(window).load(function(){
+		setTimeout(function(){
+			searchListByKeyword('snippet', 25, 'veolianorthamerica', 'video');
+		}, 0);
+	});
+	
 
 
 })(jQuery);
