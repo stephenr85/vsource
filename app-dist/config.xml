@@ -29,7 +29,7 @@
   <gap:plugin name="cordova-plugin-googleplus" source="npm">
     <param name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.206490215511-uv0tp6gj7visbkdj2mt75p77jqk4ms2f" />
   </gap:plugin>
-  <gap:plugin name="org.apache.cordova.geolocation" />
+  <gap:plugin name="org.apache.cordova.geolocation" source="npm" />
 
 <preference name="StatusBarOverlaysWebView" value="false" />
 <preference name="StatusBarBackgroundColor" value="#000000"/>
