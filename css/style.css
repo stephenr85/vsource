@@ -1063,23 +1063,23 @@ a i.fa-bars {
 }
 
 
-#leftpanel1 {
+#leftnav {
 	background-color: #fff;
 }
 
 
-#leftpanel1 li {
+#leftnav li {
 	list-style-type: none;
 	line-height: 2.75em;
 }
 
-#leftpanel1 li i {
+#leftnav li i {
 	margin-right: 20px;
 	width: 20px;
 	font-size: 1.8em;
 }
 
-#leftpanel1 li a {
+#leftnav li a {
 	color: #55545b;
 	font-size: 1.1em;
 	font-weight: 500;

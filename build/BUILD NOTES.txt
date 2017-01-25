@@ -1,0 +1,7 @@
+
+
+1. Make sure app/index.html CSS and JS are pointing to the correct version URL.
+2. Make sure js/script.js vsource.apiURL is pointing to the correct version URL.
+3. Update version number in app/config.xml.
+4. Run "gulp" from build directory in console.
+

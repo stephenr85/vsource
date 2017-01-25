@@ -28,23 +28,23 @@ gulp.task('data', function(){
 
 
 gulp.task('js1', function() {
-  gulp.src(['../app/js/index.js',
-  	'../app/js/jquery.js',
-  	'../app/js/jquery-ui.js',
-  	'../app/bower_components/jquery-cookie/jquery.cookie.js',
-  	'../app/js/bootstrap.min.js',
-  	'../app/js/jquery.mobile-1.4.5.min.js',
-  	'../app/js/handlebars.min.js',
-  	'../app/js/jquery.validate-1.13.1.min.js',
-  	'../app/js/plugins/storeLocator/jquery.storelocator.js',
-  	'../app/js/libs/underscore-min.js',
-  	'../app/js/libs/backbone-min.js',
+  gulp.src([
+  	'../js/index.js',
+  	'../js/jquery.js',
+  	'../js/jquery-ui.js',
+  	'../bower_components/jquery-cookie/jquery.cookie.js',
+  	'../js/bootstrap.min.js',
+  	'../js/jquery.mobile-1.4.5.js',
+  	'../js/handlebars.min.js',
+  	'../js/jquery.validate-1.13.1.min.js',
+  	'../js/plugins/storeLocator/jquery.storelocator.js',
+  	'../js/libs/underscore-min.js',
+  	'../js/libs/backbone-min.js',
   	//'../app/js/platform.js',
-  	'../app/js/twitsFetcher.js',
-  	'../app/js/libs/pretty-json-min.js',
-  	'../app/js/search.js',
-  	'../app/js/script.js',
-  	'../app/js/lity.min.js',
+  	'../js/twitsFetcher.js',
+  	'../js/libs/pretty-json-min.js',
+  	'../js/script.js',
+  	'../js/lity.min.js',
 
   	])
   .pipe(uglify())
@@ -54,7 +54,7 @@ gulp.task('js1', function() {
 });
 
 gulp.task('js2', function() {
-	return gulp.src(['../app/js/plugins/storeLocator/templates/*'])
+	return gulp.src(['../js/plugins/storeLocator/templates/*'])
 	.pipe(gulp.dest(outputDir+'/js/plugins/storeLocator/templates'))
 });
 
@@ -69,16 +69,16 @@ gulp.task('html', function(){
 
 gulp.task('minify-css', function() {
   
-  gulp.src('../app/css/fonts')
+  gulp.src('../css/fonts')
   .pipe(gulp.dest(outputDir+'/css'));
 
   return gulp.src([
-  	'../app/css/bootstrap.css',
-  	'../app/css/jquery.mobile.structure-1.4.5.min.css',
-  	'../app/css/map.css',
-  	'../app/css/lity.min.css',
-  	'../app/css/style.css',
-  	'../app/css/twitsFetcher.css',
+  	'../css/bootstrap.css',
+  	'../css/jquery.mobile.structure-1.4.5.min.css',
+  	'../css/map.css',
+  	'../css/lity.min.css',
+  	'../css/style.css',
+  	'../css/twitsFetcher.css',
   	])
     .pipe(cleanCSS({}))
     .pipe(concat('styles.css'))
@@ -96,13 +96,13 @@ gulp.task('minify-css', function() {
 */
 
 gulp.task('copy-fonts', function(){
-	return gulp.src('../app/css/fonts/*')
+	return gulp.src('../css/fonts/*')
    .pipe(gulp.dest(outputDir+'/css/fonts'))
 });
 
 
 gulp.task('copy-css-images', function(){
-	return gulp.src('../app/css/*.{png,jpg,jpeg,gif,svg}')
+	return gulp.src('../css/*.{png,jpg,jpeg,gif,svg}')
    .pipe(gulp.dest(outputDir+'/css'))
 });
 
@@ -112,7 +112,7 @@ gulp.task('css', ['minify-css', 'copy-fonts', 'copy-css-images']);
 
 
 gulp.task('copy-images', function(){
-	return gulp.src('../app/images/*')
+	return gulp.src('../images/*')
    .pipe(gulp.dest(outputDir+'/images'))
 });
 

@@ -43,7 +43,8 @@ class VSourceApp {
 			//parse
 			$token = str_replace('Token token=', '', $token);
 		}else if(isset($_REQUEST['auth'])){
-			$token = $_REQUEST['auth'];
+			//$token = $_REQUEST['auth'];
+			$token = preg_replace('/[\s]/', '+', $_REQUEST['auth']);
 		}
 		return $token;
 	}
@@ -83,6 +84,68 @@ class VSourceApp {
 			return $user;
 		}
 		return null;
+	}
+
+	public function startView(){
+		ob_start();
+	}
+
+	public function endView(){
+		$content = ob_get_clean();
+		
+		$hrefRegex = "/(?<=href=(\"|'))[^\"']+(?=(\"|'))/";
+		$srcRegex = "/(?<=src=(\"|'))[^\"']+(?=(\"|'))/";
+
+		$replaceUrl = function($input){
+
+			if(strpos($input[0], '#') === 0 || strpos($input[0], 'http') === 0){
+				return $input[0];
+			}else if(strpos($input[0], VSOURCE_VIEW_ROOT) !== 0) {
+				return VSOURCE_VIEW_ROOT.$input[0];
+			}else {
+				return $input[0];
+			}
+
+		};
+		
+		$content = preg_replace_callback($hrefRegex, $replaceUrl, $content);
+		$content = preg_replace_callback($srcRegex, $replaceUrl, $content);
+
+
+		echo $content;
+	}
+
+
+	public function getUrlContent($url){
+	
+		if(function_exists('file_get_contents')){
+
+			return file_get_contents($url);
+
+		}else{
+
+
+			$ch = curl_init($url);
+		
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_VERBOSE, 1);
+			curl_setopt($ch, CURLOPT_HEADER, 1);
+
+			$response = curl_exec($ch);
+
+			$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+			$header = substr($response, 0, $header_size);
+			$body = substr($response, $header_size);
+
+			// Check for errors and display the error message
+			if (false === $body){
+	        	$body = implode(' : ', array_filter(array('Error '.curl_errno($ch), curl_error($ch))));
+			}
+
+	        curl_close($ch);
+
+			return $body;
+		}
 	}
 }
 
