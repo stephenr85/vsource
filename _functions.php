@@ -98,7 +98,10 @@ class VSourceApp {
 
 		$replaceUrl = function($input){
 
-			if(strpos($input[0], '#') === 0 || strpos($input[0], 'http') === 0){
+			if(strpos($input[0], '#') === 0 
+				|| strpos($input[0], 'http') === 0 
+				|| strpos($input[0], 'mailto') === 0
+				|| strpos($input[0], 'tel') === 0){
 				return $input[0];
 			}else if(strpos($input[0], VSOURCE_VIEW_ROOT) !== 0) {
 				return VSOURCE_VIEW_ROOT.$input[0];
