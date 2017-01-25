@@ -7,7 +7,7 @@ $email = $_SAFE['email'];
 $status = 'inactive';
 $password = $_SAFE['password'];
 $password = vsource_encrypt($password);
-$validation = $_SAFE['validation'];
+$validation = time();
 $registrationdate = date('Y-m-d');
 
 if ((isset($_SAFE["userreg"])) && ($_SAFE["userreg"] == "form1")) {
@@ -44,7 +44,7 @@ $message .= '</table>';
 $message .= '<table width="650px" style="background-color:#fff; border-collapse: collapse;" align="center" cellpadding="10">';
 $message .= "<tr><td colspan=\"2\">Your VSource validation code. </td></tr>";
 $message .= "<tr><td width='30%'><strong>Your Email:</strong> </td><td width='70%'>" . strip_tags($_SAFE['email']) . "</td></tr>";
-$message .= "<tr><td><strong>Validation Code:</strong> </td><td>" . strip_tags($_SAFE['validation']) . "</td></tr>";
+$message .= "<tr><td><strong>Validation Code:</strong> </td><td>" . strip_tags($validation) . "</td></tr>";
 $message .= "</table>";
 $message .= "</body></html>";
 mail($to, $subject, $message, $headers); 

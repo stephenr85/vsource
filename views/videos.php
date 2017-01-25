@@ -4,9 +4,9 @@
 <div data-role="header"  class="headerbgvideo" data-position="fixed">
 	
 	<a href="#leftnav"><i class="fa fa-bars" aria-hidden="true"></i></a>
-		<h1><a href="#videofeed"  aria-controls="news" role="pill" data-toggle="pill">About Us</a>
+		<h1><a href="#videofeed"  aria-controls="videos" role="pill" data-toggle="pill">About Us</a>
     <span class="slashtwo">/</span>
-    <a href="#globalfeed"  aria-controls="twitter" role="pill" data-toggle="pill">Services</a>
+    <a href="#globalfeed"  aria-controls="globalvideos" role="pill" data-toggle="pill">Services</a>
 </h1>
    
 	<a href="#home"><img src="images/logo.png" class="text-left" alt="logo" class="smalllogo" width="" height="" /></a>	

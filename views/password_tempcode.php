@@ -1,6 +1,6 @@
 <?php require_once('../_init.php'); ?>
 <?php vsource()->startView(); ?>
-<div id="???" data-role="page">
+<div id="entertemppassword" data-role="page">
 <div data-role="header" class="headerbg">
 	<a href="#makeaccount" data-transition="slide" data-rel="back"><i class="fa fa-chevron-left fa-2x white"></i></a>
 		<h1>Enter Temporary Passcode</h1>

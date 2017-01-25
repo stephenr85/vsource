@@ -1,7 +1,7 @@
 <?php require_once('../_init.php'); ?>
 <?php vsource()->startView(); ?>
 
-<div id="???" data-role="page">
+<div id="changepassword" data-role="page">
 <div data-role="header" class="headerbg">
 	<a href="#makeaccount" data-transition="slide" data-rel="back"><i class="fa fa-chevron-left fa-2x white"></i></a>
 		<h1>Change Passcode</h1>
@@ -16,7 +16,7 @@
 		
 		</p>
 		<div class="main-login-form">
-			<input type="text" name="password" class="form-control whitebigtext" placeholder="Enter New Password"></input>
+			<input type="password" name="password" class="form-control whitebigtext" placeholder="Enter New Password"></input>
 			</div>
 			<div class="validatesignup" class="text-center">
 <img src="images/loading.gif" width="32px">

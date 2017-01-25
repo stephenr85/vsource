@@ -12,7 +12,7 @@
 	<div role="main">
 		<div class="main-content">
 		
-		<form name="forgotpassword" id="forgotpassword" method="post">
+		<form name="forgotpassword" id="forgotpasswordform" method="post">
 		<p class="text-center">
 		<br><br><br>
 		Enter your email address. <br>

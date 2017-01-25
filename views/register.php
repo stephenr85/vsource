@@ -38,7 +38,6 @@
 					</div>
 				</div>
 				<input type="hidden" name="userreg" value="form1">
-				<input type="hidden" name="validation" id="random" value="">
 				
 			</div>
 			<div class="loadingsignup" class="text-center">

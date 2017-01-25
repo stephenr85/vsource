@@ -28,19 +28,30 @@
     <div role="tabpanel"  class="tab-pane fade in active" id="newsfeed">
     <div class="rssfeed">
     
-
+    	<div id="rssincl-box-container-1096476"></div>
     </div>
 
     	<?php 
-    		/*
-    		<script type="text/javascript" src="http://output91.rssinclude.com/output?type=js&amp;id=1096476&amp;hash=cd5ca1beade41004defb6fe09d33b89a"></script>
-    		*/
-    		$rssJS = vsource()->getUrlContent('http://output91.rssinclude.com/output?type=js&id=1096476&hash=cd5ca1beade41004defb6fe09d33b89a');
+    		if(false){
+    			/*
+	    		<script type="text/javascript" src="http://output91.rssinclude.com/output?type=js&amp;id=1096476&amp;hash=cd5ca1beade41004defb6fe09d33b89a"></script>
+	    		*/
+	    		$rssJS = vsource()->getUrlContent('http://output91.rssinclude.com/output?type=js&id=1096476&hash=cd5ca1beade41004defb6fe09d33b89a');
 
-    		$rssJS = trim(stripcslashes($rssJS));
-    		$rssJS = preg_replace('/^document.write\("/', '', $rssJS);
-    		$rssJS = preg_replace('/"\);$/', '', $rssJS);
-    		echo $rssJS;
+	    		$rssJS = trim(stripcslashes($rssJS));
+	    		$rssJS = preg_replace('/^document.write\("/', '', $rssJS);
+	    		$rssJS = preg_replace('/"\);$/', '', $rssJS);
+	    		echo $rssJS;
+    		}
+    		
+
+
+    	?>
+
+    	<?php 
+    	if(false){
+    		@readfile('http://output85.rssinclude.com/output?type=php&id=1096476&hash=2ee63107f4dc74414b55fcebb7193ffd');
+    	}
     	?>
 
        </div>

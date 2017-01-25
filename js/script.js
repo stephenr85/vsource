@@ -2,7 +2,7 @@
 (function($){
 
 	vsource = window.vsource = {};
-	vsource.apiUrl = 'http://vesnaus.com/vsource/v1.9';
+	vsource.apiUrl = 'http://vesnaus.com/vsource/v1.6';
 	//vsource.apiUrl = '';
 
 	vsource.log = function(){
@@ -261,6 +261,10 @@
 		url: '/views/register.php'
 	};
 
+	vsource.pages['register_validation'] = {
+		url: '/views/register_validation.php'
+	};
+
 	vsource.pages['forgotpassword'] = {
 		url: '/views/forgot_password.php',
 
@@ -333,6 +337,12 @@
 		    	window.open(this.href, $(this).attr('target') || '_blank');
 		    });
 
+		    (function() {
+			  var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+			  s.src = 'http://output17.rssinclude.com/output?type=asyncjs&id=1096476&hash=aa04a2a29484dc3e2905773e0dd03a6a';
+			  document.getElementsByTagName('head')[0].appendChild(s);
+			})();
+
 		    $('.rssincl-entry').not(':has(.rssincl-itemimage)').prepend( "<div class='rssincl-itemimage'><img src='" + vsource.apiUrl + "/images/veolianewslogo.png' ></div>" ); 
 
 		    $('#myTabs a').click(function (e) {
@@ -349,24 +359,80 @@
 		url: '/views/videos.php',
 
 		onLoad: function(){
+			var I = this;
+
 			$.get(vsource.apiUrl + '/views/youtube_modal.php').then(function(response){
 				$(response).appendTo('body');
 			});
+
+			I.loadAboutVideos();
+			$('[href="#videofeed"]').on('click', function(){
+				I.loadAboutVideos();
+			});
+
+			$('[href=#globalfeed]').on('click', function(){
+				I.loadServicesVideos();
+			});
+			
+			
 		},
 
 		onShow: function(){
-			var I = this;
+			var I = this;			
+		},
 
-			setTimeout(function(){
+		loadAboutVideos: function(){
 
-				I.searchListByKeyword('snippet', 25, 'veolianorthamerica', 'video');
-			
-			}, 1);
-			
-			
+			var request = gapi.client.youtube.playlistItems.list({
+				playlistId: 'PLH-nnUXtAYzpIJxKuLmldQ8EW0Kyu6dSL',
+				maxResults: 25,
+			    relevanceLanguage: 'en',
+			    type: 'video',
+			    part: 'snippet'
+			});
+
+			request.execute(function(data){
+				console.log(data);
+
+				if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
+	            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
+	            var items = data.items, videoList = "";
+	            $("#pageTokenNext").val(data.nextPageToken);
+	            $("#pageTokenPrev").val(data.prevPageToken);
+	            $.each(items, function(index,e) {
+	                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.id+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
+	            });
+	            $("#hyv-watch-related").html(videoList);
+			});
+
+		},
+
+		loadServicesVideos: function(){
+			var request = gapi.client.youtube.search.list({
+			    playlistId: 'PLH-nnUXtAYzp7UDj29arg6RlyLDuJ-cEa',
+			    maxResults: 25,
+			    relevanceLanguage: 'en',
+			    type: 'video',
+			    part: 'snippet'
+			});
+
+			request.execute(function(data){
+				console.log(data);
+
+				if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
+	            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
+	            var items = data.items, videoList = "";
+	            $("#pageTokenNext").val(data.nextPageToken);
+	            $("#pageTokenPrev").val(data.prevPageToken);
+	            $.each(items, function(index,e) {
+	                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.id+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
+	            });
+	            $("#hyv-global-related").html(videoList);
+			});
 		},
 
 		searchListByKeyword: function(part, maxResults, q, type){
+			return;
 			var request = gapi.client.youtube.search.list(
 			      {maxResults: maxResults,
 			       part: part,
@@ -517,7 +583,7 @@
 		}
 		
 		else {
-		$.mobile.changePage( "#validate");
+		$.mobile.changePage( "#register_validation");
 		$('.loadingsignup').hide();
 		$('.userID').val(data);
 		userID = data;
@@ -550,17 +616,18 @@
 	$(document).on('click','#newpassword', function(e){
 		e.preventDefault();
 		var email = $('#forgotemail').val();
-		var regdetails = $('#forgotpassword').serialize();
-		$.post(vsource.apiUrl + '/resetpassword.php', regdetails, function(data){
+		var formdata = $('#forgotpasswordform').serialize();
+
+		$.post(vsource.apiUrl + '/resetpassword.php', formdata, function(data){
 		
 		if (data == 0) {
 			vsource.alert("No account found!");
 			
 		}
-			else if (data == 1) {
-				$.mobile.changePage( "#entertemppassword");
-				$('.emailcode').val(email);
-			}
+		else if (data == 1) {
+			$.mobile.changePage( "#entertemppassword");
+			$('.emailcode').val(email);
+		}
 		})
 	});	
 
