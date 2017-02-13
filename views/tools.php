@@ -12,6 +12,13 @@
 	<div role="main" class="ui-content">
 	<div class="container">
 	<div class="row">
+		<p class="text-center"><strong>Grow Our Business</strong>
+		<br>
+			<a href="#bdcontacts" class="btn graybg btn-lg">BD CONTACTS</a>
+			<br>&nbsp;
+		</p>
+
+
 	<p class="text-center"><strong>Information</strong></p>
 	<div class="col-xs-3"><a href="#" onclick="window.open('https://twitter.com/Veolia_NA', '_blank');"><i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a></div>
 	<div class="col-xs-3"><a href="#" onclick="window.open('https://www.linkedin.com/company/veolianorthamerica', '_blank');"><i class="fa fa-linkedin fa-3x" aria-hidden="true"></i></a>
@@ -46,8 +53,9 @@
 	<br><br>
 	
 	<u>North America</u><br>
-	Approx. 7,900 employees <br>
-	Serve 530 cities, 30k employees
+	7,900 employees <br>
+	550 communities<br>
+	30K customers
 	<br><br>
 	
 	
@@ -56,7 +64,7 @@
 	Drinking water to 96M <br>
 	Wastewater service to 60M <br>
 	52M megawatt hours of energy <br>
-31M tons of waste converted <br>
+	31M tons of waste converted <br>
 	Consolidated revenue, $30.3B <br>
 	</strong>
 	</div>
