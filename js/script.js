@@ -4,29 +4,43 @@
 	vsource = window.vsource = {};
 	vsource.apiUrl = 'http://vesnaus.com/vsource/v1.6';
 	//vsource.apiUrl = '';
+	vsource.gapiKey = 'AIzaSyAEyLPdX3kvIkGbetsf95OI5IqmQR4jOFc';
+	vsource.initHash = window.location.hash;	
+
+
 
 	vsource.log = function(){
 		console.log(arguments);
 	};
 
-	vsource.alert = function(msg){
-		if(typeof(window.navigator) !== 'undefined' && typeof(navigator.alert) !== 'undefined'){
-			navigator.alert(msg);
+	vsource.alert = function(msg, callback, title, buttonName){
+		if(!title) title = document.title;
+
+		if(typeof(window.navigator) !== 'undefined' && typeof(navigator.notification) !== 'undefined'){
+			navigator.notification.alert(msg, callback, title, buttonName);
 		}else{
 			alert(msg);
+			if(typeof(callback) === 'function'){
+				callback();
+			}			
 		}		
 	};
 
-	vsource.logout = function(page){
-		if(!arguments.length) page = '#splash';
-		$.cookie('vsource_auth_group', '');
-		$.cookie('vsource_auth', '');
-		if(page) $.mobile.changePage(page);
+
+	vsource.logout = function(){
+		
+		vsource.setAuthGroup('');
+		vsource.setAuthToken('');
+		window.location.reload();
+
 		return this;
 	};
 
 	vsource.setAuthToken = function(token){
 		$.cookie('vsource_auth', token);
+		if(window.localStorage){
+			window.localStorage.setItem("vsource_auth", token);
+		}
 		$.ajaxSetup({
 			beforeSend: function (xhr) {
 				//vsource.log(typeof(this.data));
@@ -37,42 +51,58 @@
 		        //xhr.setRequestHeader('Authorization','Token token="' + vsource.authToken + '"');
 		    }
 		});
-		this.authToken = token;
+		vsource.authToken = token;
 		return this;
 	};
 
 	vsource.getAuthToken = function(){
-		return $.cookie('vsource_auth');
+		if(window.localStorage){
+			return window.localStorage.getItem("vsource_auth");
+		}else{
+			return $.cookie('vsource_auth');
+		}
+		
 	};
+	//Check for existing auth cookie
 	vsource.authToken = vsource.getAuthToken();
-
+	if(vsource.authToken){
+		vsource.setAuthToken(vsource.authToken);
+	}
 
 	vsource.setAuthGroup = function(groupID){
-		$.cookie('vsource_auth_group', groupID);
+		$.cookie('vsource_auth_group', groupID * 1);
+		if(window.localStorage){
+			window.localStorage.setItem('vsource_auth_group', groupID * 1);
+		}
 		return this;
 	};
 	vsource.getAuthGroup = function(){
-		return $.cookie('vsource_auth_group');
+		if(window.localStorage){
+			return window.localStorage.getItem('vsource_auth_group') * 1;
+		}else{
+			return $.cookie('vsource_auth_group') * 1;
+		}		
 	};
 
 	vsource.gotoUserHome = function(authGroup){
-		if(!arguments.length){
+		vsource.log('gotoUserHome', arguments);
+		if(!arguments.length || arguments[0] === null){
 			authGroup = vsource.getAuthGroup();
 		}
-		if(authGroup == 1){
-			$.mobile.changePage('#home');
-		}else if(authGroup == 2){
-			$.mobile.changePage('#guesthome');
-		}else{
-			console.log('Unknown authGroup: ' + authGroup)
-			$.mobile.changePage('#guesthome');
+		//vsource.alert('Auth group: ' + authGroup + typeof(authGroup));
+
+		for(var alias in vsource.pages){
+			var page = vsource.pages[alias];
+			if(authGroup === page.authGroup && page.isHome){
+				$(':mobile-pagecontainer').pagecontainer('change', '#' + alias);
+			}
 		}
 	};
 
 	vsource.changePage = function(page, options){
 
 		//if(!$(page).length){
-			$(":mobile-pagecontainer").pagecontainer("change", page, options || {
+			$(':mobile-pagecontainer').pagecontainer('change', page, options || {
 
 
 			});
@@ -80,27 +110,30 @@
 		//}
 	};
 
-	//check for cookie
-	//set auth headers
-	//send user to default page
-	if(vsource.authToken){
-		vsource.setAuthToken(vsource.authToken);
-
-		$(document).ready(function(){
-			vsource.gotoUserHome();
-		});
-	}
-
 
 	vsource.init = function(){
+		//remove local stylesheet now that remote JS has loaded
+		$('link[href="css/styles.css"]').remove();
+
 
 		$.mobile.page.prototype.options.domCache = true;
 	    $.mobile.allowCrossDomainPages = true;
 	    $.support.cors = true;   
 
 	    var $activePage = $(':mobile-pagecontainer').pagecontainer('getActivePage');
-		if($activePage.is('#placeholder')){
+
+	    //Send user to splash/login by default
+		if(!vsource.authToken){
 			$(':mobile-pagecontainer').pagecontainer('change', '#splash');
+		}
+		//If they have an auth token and there's already an initHash, send them there
+		else if(vsource.initHash){
+			$(':mobile-pagecontainer').pagecontainer('change', vsource.initHash);
+
+		}
+		//Send authenticated user to respective "home" page
+		else{
+			vsource.gotoUserHome();
 		}
 
 		//Load left nav panel
@@ -108,10 +141,7 @@
 			$(html).appendTo('body').panel();
 		});
 		
-
 		gapi.load('client', vsource.googleApiClientReady);
-
-		
 
 		vsource.domReady();
 	};
@@ -119,12 +149,15 @@
 	vsource.googleApiClientReady = function(){
 		console.log('googleApiClientReady');
 
-		gapi.client.setApiKey('AIzaSyAEyLPdX3kvIkGbetsf95OI5IqmQR4jOFc');
+		gapi.client.setApiKey(vsource.gapiKey);
 		gapi.client.load('youtube', 'v3', function(){
 			console.log('YouTube API loaded');
+			vsource.whenYouTube.resolve();
 		});
 
 	};
+
+	vsource.whenYouTube = $.Deferred();
 
 
 	vsource.domReady = function(context){
@@ -195,7 +228,7 @@
 			pageObj = vsource.pages[pageName];
 
 		if(pageObj){
-			$.mobile.loading('hide', {
+			$.mobile.loading('show', {
 	            //text: msgText,
 	            //textVisible: textVisible,
 	            //theme: theme,
@@ -279,7 +312,9 @@
 	};
 
 	vsource.pages['guesthome'] = {
-		url: '/views/guests/home.php'
+		url: '/views/guests/home.php',
+		authGroup: 0,
+		isHome: true
 	};
 
 	vsource.pages['guestservices'] = {
@@ -294,7 +329,8 @@
 
 	vsource.pages['home'] = {
 		url: '/views/home.php',
-
+		authGroup: 1,
+		isHome: true,
 		onShow: function(){
 			//alert('test');
 		}
@@ -303,7 +339,7 @@
 	vsource.pages['news'] = {
 		url: '/views/news.php',
 
-		onShow: function(){
+		onLoad: function(){
 			$('#twitterlink').click(function(){
 				$('.twitterbox').hide();
 			});
@@ -331,6 +367,14 @@
 		        enablePermalink: true
 		    });
 
+
+		    $('#twitbox').on('click', 'a[href^="http"]', function(evt){
+		    	evt.preventDefault();
+
+		    	window.open(this.href, $(this).attr('target') || '_blank');
+		    });
+
+
 		    $('#twitbox').on('click', 'a[href^="http"]', function(evt){
 		    	evt.preventDefault();
 
@@ -342,6 +386,15 @@
 			  s.src = 'http://output17.rssinclude.com/output?type=asyncjs&id=1096476&hash=aa04a2a29484dc3e2905773e0dd03a6a';
 			  document.getElementsByTagName('head')[0].appendChild(s);
 			})();
+
+	
+		    
+		    $('.rssfeed').on('click', 'a[href*="rss-site-updates"]', function(evt){
+		    	evt.preventDefault();
+		    	window.open('http://www.veolianorthamerica.com/en/media/media/newsroom', $(this).attr('target') || '_blank');
+		    	return false;
+		    });
+
 
 		    $('.rssincl-entry').not(':has(.rssincl-itemimage)').prepend( "<div class='rssincl-itemimage'><img src='" + vsource.apiUrl + "/images/veolianewslogo.png' ></div>" ); 
 
@@ -383,78 +436,61 @@
 
 		loadAboutVideos: function(){
 
-			var request = gapi.client.youtube.playlistItems.list({
-				playlistId: 'PLH-nnUXtAYzpIJxKuLmldQ8EW0Kyu6dSL',
-				maxResults: 25,
-			    relevanceLanguage: 'en',
-			    type: 'video',
-			    part: 'snippet'
-			});
+			return vsource.whenYouTube.done(function(){
 
-			request.execute(function(data){
-				console.log(data);
 
-				if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
-	            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
-	            var items = data.items, videoList = "";
-	            $("#pageTokenNext").val(data.nextPageToken);
-	            $("#pageTokenPrev").val(data.prevPageToken);
-	            $.each(items, function(index,e) {
-	                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.id+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
-	            });
-	            $("#hyv-watch-related").html(videoList);
+				var request = gapi.client.youtube.playlistItems.list({
+					playlistId: 'PLH-nnUXtAYzpIJxKuLmldQ8EW0Kyu6dSL',
+					maxResults: 25,
+				    relevanceLanguage: 'en',
+				    type: 'video',
+				    part: 'snippet'
+				});
+
+				request.execute(function(data){
+					console.log(data);
+
+					if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
+		            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
+		            var items = data.items, videoList = "";
+		            $("#pageTokenNext").val(data.nextPageToken);
+		            $("#pageTokenPrev").val(data.prevPageToken);
+		            $.each(items, function(index,e) {
+		                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
+		            });
+		            $("#hyv-watch-related").html(videoList);
+				});
+
 			});
 
 		},
 
 		loadServicesVideos: function(){
-			var request = gapi.client.youtube.search.list({
-			    playlistId: 'PLH-nnUXtAYzp7UDj29arg6RlyLDuJ-cEa',
-			    maxResults: 25,
-			    relevanceLanguage: 'en',
-			    type: 'video',
-			    part: 'snippet'
-			});
 
-			request.execute(function(data){
-				console.log(data);
+			return vsource.whenYouTube.done(function(){
 
-				if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
-	            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
-	            var items = data.items, videoList = "";
-	            $("#pageTokenNext").val(data.nextPageToken);
-	            $("#pageTokenPrev").val(data.prevPageToken);
-	            $.each(items, function(index,e) {
-	                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.id+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
-	            });
-	            $("#hyv-global-related").html(videoList);
-			});
-		},
+				var request = gapi.client.youtube.playlistItems.list({
+				    playlistId: 'PLH-nnUXtAYzp7UDj29arg6RlyLDuJ-cEa',
+				    maxResults: 25,
+				    relevanceLanguage: 'en',
+				    type: 'video',
+				    part: 'snippet'
+				});
 
-		searchListByKeyword: function(part, maxResults, q, type){
-			return;
-			var request = gapi.client.youtube.search.list(
-			      {maxResults: maxResults,
-			       part: part,
-			       q: q,
-			       type: type});
-			request.execute(function(data){
-				console.log(data);
+				request.execute(function(data){
+					console.log(data);
 
-				if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
-	            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
-	            var items = data.items, videoList = "";
-	            $("#pageTokenNext").val(data.nextPageToken);
-	            $("#pageTokenPrev").val(data.prevPageToken);
-	            $.each(items, function(index,e) {
-	                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.id.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
-	            });
-	            $("#hyv-watch-related").html(videoList);
-	            // JSON Responce to display for user
-	            new PrettyJSON.view.Node({ 
-	                el:$(".hyv-watch-sidebar-body"), 
-	                data:data
-	            });
+					if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
+		            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
+		            var items = data.items, videoList = "";
+		            $("#pageTokenNext").val(data.nextPageToken);
+		            $("#pageTokenPrev").val(data.prevPageToken);
+		            $.each(items, function(index,e) {
+		                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
+		            });
+		            $("#hyv-global-related").html(videoList);
+				});
+
 			});
 		}
 	};
@@ -533,7 +569,14 @@
 
 	
 
-	
+	vsource.pages['bdcontacts'] = {
+		url: '/views/bdcontacts.php',
+
+		onLoad: function(){
+
+			
+		}
+	};
 
 	
 
@@ -558,12 +601,8 @@
 					vsource.setAuthGroup(data[0]);
 					vsource.setAuthToken(data[1]);
 
-					if(data[0] == 1){
+					vsource.gotoUserHome();
 
-						vsource.changePage('#home');
-					}else{
-						$.mobile.changePage('#guesthome');
-					}
 				}
 
 			})

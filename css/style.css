@@ -415,28 +415,26 @@ button.bluebg, a.bluebg {
 
 .redbutton a , .greenbutton a, .bluebutton a {
 	color: #fff !important;
-	font-family: 'Roboto', sans-serif !important;
+	/*font-family: 'Roboto', sans-serif !important;*/
 	text-decoration: none;
 }
 
 .greenbutton {
 	background-color: #199c69 !important;
 	color: #fff !important;
-	margin-top: -20px;
-	height: 50px;
+	
 	-webkit-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
--moz-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
+	-moz-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
+	box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
 }
 
 .bluebutton {
 	background-color: #0062a9 !important;
 	color: #fff !important;
-	height: 50px;
-	margin-top: -20px;
+	
 	-webkit-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
--moz-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
+	-moz-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
+	box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
 }
 
 .redbg {
@@ -447,10 +445,9 @@ box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
 .redbutton {
 	background-color: #e95f47 !important;
 	color: #fff !important;
-	height: 50px;
 	-webkit-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
--moz-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
+	-moz-box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
+	box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
 }
 
 a.graybg  {
@@ -526,6 +523,7 @@ h1.ui-title
 	
 	text-overflow: ellipsis-word;
 	margin: 0em 10% 0.8em !important;
+
 }
 
 .offices {
@@ -562,7 +560,7 @@ width: 100%;
 }
 
 .slashtwo {
-	font-size: 1.5em;
+	/*font-size: 1.5em;*/
 	padding-left: 8px;
 	padding-right: 8px;
 }
@@ -1075,8 +1073,14 @@ a i.fa-bars {
 
 #leftnav li i {
 	margin-right: 20px;
-	width: 20px;
-	font-size: 1.8em;
+	width: 10%;
+	font-size: 18px;
+}
+
+#leftnav li .fa-home {
+	margin-right: 20px;
+	width: 10%;
+	font-size: 22px;
 }
 
 #leftnav li a {
@@ -1102,9 +1106,17 @@ ul.second_nav li a {
 	border: none !important;
 }
 
-ui-header .ui-title {
+.ui-header .ui-title {
     margin-right: 10% !important;
     margin-left: 10% !important;
+    margin-bottom: 0 !important;
+    font-size: 16px;
+	font-weight: normal;
+}
+
+.ui-header .ui-btn-right {
+	padding: 2px 0 0;
+	right: 0;
 }
 
 .ui-panel-inner {
@@ -1133,13 +1145,106 @@ ui-header .ui-title {
 	
 }
 
+#bdcontacts p {
+	margin-bottom: 1.6em;
+	line-height: 1.6em;
+}
+
+#bdcontacts p > strong:first-child {
+	font-size: 16px;
+}
+
+#bdcontacts a[href^="mailto:"],
+#bdcontacts a[href^="tel:"] {
+	
+}
+
+#bdcontacts a[href^="mailto:"]:before {
+	display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    margin-right: .25em;
+    width: 1em;
+    content:"\f003";
+}
+
+#bdcontacts a[href^="tel:"]:before {
+	display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    margin-right: .25em;
+    width: 1em;
+    content:"\f098";
+
+}
+
+#bdcontacts .redbutton,
+#bdcontacts .bluebutton,
+#bdcontacts .greenbutton {
+	margin-top: 0;
+}
+
+.ui-collapsible-heading .ui-collapsible-heading-toggle {
+	position: relative;
+}
+
+.ui-collapsible-heading .ui-collapsible-heading-toggle:after {
+	display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1.3em;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    width: 14px;
+    content:"\f104";
+    position: absolute;
+    right: .8em;
+    top: .85em;
+    left: auto;
+    bottom: auto;
+}
+
+.ui-collapsible-heading .ui-collapsible-heading-toggle.ui-icon-minus {
+	opacity: .8;
+}
+.ui-collapsible-heading .ui-collapsible-heading-toggle.ui-icon-minus:after {
+	content:"\f107";
+	margin-right: .1em;
+}
 
 
+.ui-collapsible-heading {
+	/*font-family: FSRufus,Georgia,"Times New Roman","Bitstream Vera Serif",serif !important;*/
+	font-family: 'Roboto', sans-serif;
+	font-weight: normal;
+	white-space: normal;
+}
 
+.ui-collapsible-heading .ui-collapsible-heading-toggle,
+.ui-collapsible-heading .ui-collapsible-heading-toggle:active {
+	font: inherit;
+	color: inherit;
+	white-space: inherit;
+	padding: .8em 40px .8em 30px;
+}
 
+h2.ui-collapsible-heading {
+	font-size: 18px;
+}
 
+h3.ui-collapsible-heading {
+	font-size: 18px;
+	border-top: 1px solid rgba(0,0,0,.1);
+}
 
-
+.ui-collapsible-themed-content .ui-collapsible-content {
+	background-color: #fff;
+	border: none;
+	padding: 20px 30px;
+}
 
 /* Large desktops and laptops */
 @media (min-width: 1200px) {

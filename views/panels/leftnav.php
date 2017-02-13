@@ -16,11 +16,13 @@
 </div>
       <ul>
   <li><a href="#home"> <i class="fa fa-home" aria-hidden="true"></i> Home</a></li>    
-  <li><a href="#news"> <img src="images/news.png" class="menu-icon" width="10%"> News</a></li>
-   <li><a href="#videos"> <img src="images/video.png" class="menu-icon" width="10%"> Videos</a></li>
+  <li><a href="#news"> <i class="fa fa-newspaper-o"></i> News</a></li>
+   <li><a href="#videos"> <i class="fa fa-film"></i> Videos</a></li>
   <li><a href="#ideas"><img src="images/share.png" class="menu-icon" width="10%"> My Ideas</a></li>
   <li><a href="#offices"><img src="images/offices.png" class="menu-icon" width="10%"> Offices</a></li>
   <li><a href="#tools"><img src="images/tools.png" class="menu-icon" width="10%"> Tools</a></li>
+  <li><a href="#bdcontacts"><i class="fa fa-handshake-o"></i> BD Contacts</a></li>
+  
 </ul>        
 <hr/>
 <ul class="second_nav">
