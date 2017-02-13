@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery-cookie": "~1.4.1"
+    "jquery-cookie": "~1.4.1",
+    "font-awesome": "~4.7.0"
   }
 }

@@ -75,6 +75,8 @@ gulp.task('minify-css', function() {
   return gulp.src([
   	'../css/bootstrap.css',
   	'../css/jquery.mobile.structure-1.4.5.min.css',
+  	'../css/font-awesome.css',
+  	'../css/veolia-fonts.css',
   	'../css/map.css',
   	'../css/lity.min.css',
   	'../css/style.css',
