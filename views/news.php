@@ -14,7 +14,7 @@
 				<a href="#home"><img src="images/logo.png" alt="logo" width="" height="" /></a>
 <div class="graybackground minus">
 	<div class="searchbox twitterbox">
-		 <form>
+		 <form id="newssearch">
     <input data-type="search" placeholder="Search" class="form-control" id="newsfeeder">
 </form></div>	
 					</div>

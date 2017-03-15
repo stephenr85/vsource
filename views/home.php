@@ -19,13 +19,13 @@
 </div>	<!-- end row -->
 <div class="row">
 <div class="col-xs-6 menubutton text-center">
-<a href="#ideas" data-transition="slidedown"><img src="images/share.png" width="70%" class="home-icon" data-transition="fade"> Share your idea</a>
+<a href="#ideas" data-transition="slidedown"><img src="images/sales_contacts.png"  width="70%" class="home-icon"> Sales Contacts</a>
 </div>	
 <div class="col-xs-6 menubutton text-center">	<a href="#offices" data-transition="slidedown"><img src="images/offices.png"  width="40%" class="home-icon">Offices</a>
 </div>	
 </div> <!-- end row -->
-<div class="col-xs-6 menubutton text-center"><a href="#tools" data-transition="slidedown"><img src="images/tools.png" class="home-icon" width="70%">
-Tools</a>	
+<div class="col-xs-6 menubutton text-center"><a href="#more" data-transition="slidedown"><img src="images/tools.png" class="home-icon" width="70%">
+More</a>	
 	</div>
 <div class="col-xs-6 menubutton text-center"><a href="#join" data-transition="slidedown"><img src="images/join.png" class="home-icon" width="50%">
 Join</a>	

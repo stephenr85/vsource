@@ -1,11 +1,11 @@
 <?php require_once('../_init.php'); ?>
 <?php vsource()->startView(); ?>
 
-<div id="bdcontacts" data-role="page">
+<div id="sales_contacts" data-role="page">
 	<div data-role="header" data-position="fixed" class="headerbg">
 	
 	<a href="#leftnav"><i class="fa fa-bars" aria-hidden="true"></i></a>
-		<h1>BD Contacts</h1>
+		<h1>Sales Contacts</h1>
 	<a href="#home"><img src="images/logo.png" alt="logo" width="" height="" /></a>
 </div><!-- /header -->
 
@@ -14,7 +14,7 @@
 	
 	<div class="col-xs-12">
 	
-		<p>Looking for Business Development contacts?<br>
+		<p>Looking for Sales Contacts?<br>
 You can find them here.</p>
 		
 
@@ -201,22 +201,42 @@ Kevin leads national sales for the Industrial Cleaning group. The contacts below
   <a href="tel:618.931.0014">618.931.0014</a><br></p>
 </div>
 <div data-role="collapsible">
-<h3>South Region, Gulf Coast</h3>
-<p> <strong>Jody DeLuca</strong><br>
-  <a href="mailto:Jody.deluca@veolia.com">jody.deluca@veolia.com </a><br>
-  <a href="tel:231.739.1695">231.739.1695</a><br></p>
-</div>
-<div data-role="collapsible">
-<h3>South West Region</h3>
+<h3>South East Region</h3>
 <p><strong>Troy Williams </strong><br>
   <a href="mailto:Troy.williams@veolia.com">troy.williams@veolia.com </a><br>
   <a href="tel:985.652.0187">985.652.0187</a><br></p>
 </div>
 <div data-role="collapsible">
+<h3>South Region, Gulf Coast</h3>
+<p> <strong>Jody DeLuca</strong><br>
+  <a href="mailto:Jody.deluca@veolia.com">jody.deluca@veolia.com </a><br>
+  <a href="tel:231.739.1695">231.739.1695</a><br></p>
+</div>
+
+<div data-role="collapsible">
 <h3>East Region</h3>
 <p> <strong>Dave Vetter</strong><br>
   <a href="mailto:David.vetter@veolia.com">David.vetter@veolia.com </a><br>
   <a href="tel:606.644.0426">606.644.0426</a><br></p>
+</div>
+<div data-role="collapsible">
+<h3>South West Region</h3>
+<p><strong>Eddie Gerren</strong><br>
+  <a href="mailto:eddie.gerren@veolia.com">eddie.gerren@veolia.com</a><br>
+  <a href="tel:512.760.0330">512.760.0330</a><br></p>
+</div>
+<div data-role="collapsible">
+<h3>Resource Solutions</h3>
+<p><strong>Michelle McIntyre </strong><br>
+  <a href="mailto:michelle.mcintyre@veolia.com">michelle.mcintyre@veolia.com</a><br>
+  <a href="tel:248.697.0136">248.697.0136</a><br>
+  <a href="tel:248.755.9026">248.755.9026 (cell)</a><br></p>
+</div>
+<div data-role="collapsible">
+<h3>National Chemical Cleaning</h3>
+<p><strong>John Beale </strong><br>
+  <a href="mailto:john.beale@veolia.com">john.beale@veolia.com</a><br>
+  <a href="tel:714.262.6517">714.262.6517</a><br></p>
 </div>
 </div>
 
@@ -237,7 +257,8 @@ Kevin leads national sales for the Industrial Cleaning group. The contacts below
 <div data-role="collapsible">
 <h3>Regeneration Sales</h3>
 <p><strong>Mike Daly</strong><br>
-  <a href="mailto:michael.daly@veolia.com">michael.daly@veolia.com </a><br></p>
+  <a href="mailto:michael.daly@veolia.com">michael.daly@veolia.com </a><br>
+  <a href="tel:610.229.5661">610.229.5661 (cell)</a><br></p>
 </div>
 </div>
 <div data-role="collapsible">

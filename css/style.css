@@ -461,6 +461,8 @@ a.graybg  {
 	
 }
 
+#more a.btn-lg.graybg {width: 175px;}
+
 #my-signin2 {
 	color: #646464 !important;
 }
@@ -823,7 +825,8 @@ input#newsfeeder {
 }
 
 .fa-sign-out {
-	margin-top: 5px;
+	margin-top: 10px;
+	margin-right: 5px;
 }
 
 

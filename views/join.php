@@ -17,7 +17,7 @@
 		
 		<div data-role="collapsibleset" data-inset="false">
     <div data-role="collapsible">
-        <h2 class="redbutton">1. JOIN THE SOCIAL TEAM</h2>
+        <h2 class="redbutton">JOIN THE SOCIAL TEAM</h2>
         
 	<p><strong>Veolia will occasionally ask for your help pushing news.</strong></p>
 	<br>
@@ -25,7 +25,7 @@
 	</div>
 
 	</div>
-
+<?php /*
 	<div data-role="collapsible">
         <h2 class="greenbutton">2. JOIN A COMPANY GROUP</h2>
         <p class="text-center"><strong>We currently offer the following groups: Safety, Sustainability, Women in Leadership, Diversity &amp; Veterans.</strong></p>  
@@ -33,9 +33,9 @@
 <a href="mailto:matt.demo@veolia.com?subject=I’m interested in joining an affinity group&body=I'm interested in joining the INSERT GROUP NAME group. Can you tell me more about the process?" id="jointeam" class="ui-btn ui-btn-inline greenbg">Join a Group</a> 
 </div>
  </div>
-
+*/ ?>
 <div data-role="collapsible">
-        <h2 class="bluebutton">3. SUGGEST A GROUP</h2>
+        <h2 class="bluebutton">SUGGEST A GROUP</h2>
         <div class="text-center"><strong>Have an idea for a company group? Let us know.  </strong>
 </div>
 <br>

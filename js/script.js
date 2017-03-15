@@ -313,7 +313,7 @@
 
 	vsource.pages['guesthome'] = {
 		url: '/views/guests/home.php',
-		authGroup: 0,
+		authGroup: 2,
 		isHome: true
 	};
 
@@ -343,8 +343,6 @@
 			$('#twitterlink').click(function(){
 				$('.twitterbox').hide();
 			});
-
-			 
 
 
 			$('#newsclick').click(function(){
@@ -387,6 +385,18 @@
 			  document.getElementsByTagName('head')[0].appendChild(s);
 			})();
 
+			var onInitFeed = setInterval(function(){
+
+				if($('.rssincl-content').length){
+					$('.rssincl-entry').not(':has(.rssincl-itemimage)').prepend( "<div class='rssincl-itemimage'><img src='" + vsource.apiUrl + "/images/veolianewslogo.png' ></div>" );
+				    $('.rssincl-content').attr('data-filter','true');
+					$('.rssincl-content').attr('data-input','#' + 'newsfeeder');
+					$('.rssincl-content').filterable();
+					clearInterval((onInitFeed));
+				}
+
+			}, 250);
+
 	
 		    
 		    $('.rssfeed').on('click', 'a[href*="rss-site-updates"]', function(evt){
@@ -395,16 +405,13 @@
 		    	return false;
 		    });
 
-
-		    $('.rssincl-entry').not(':has(.rssincl-itemimage)').prepend( "<div class='rssincl-itemimage'><img src='" + vsource.apiUrl + "/images/veolianewslogo.png' ></div>" ); 
-
 		    $('#myTabs a').click(function (e) {
 			  e.preventDefault();
 			  $(this).tab('show');
 			});
 
-		    $('.rssincl-content').attr('data-filter','true');
-			$('.rssincl-content').attr('data-input','#' + 'newsfeeder');
+
+		    
 		}
 	};
 
@@ -417,6 +424,7 @@
 			$.get(vsource.apiUrl + '/views/youtube_modal.php').then(function(response){
 				$(response).appendTo('body');
 			});
+
 
 			I.loadAboutVideos();
 			$('[href="#videofeed"]').on('click', function(){
@@ -448,7 +456,7 @@
 				});
 
 				request.execute(function(data){
-					console.log(data);
+					vsource.log(data);
 
 					if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
 		            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
@@ -478,7 +486,7 @@
 				});
 
 				request.execute(function(data){
-					console.log(data);
+					vsource.log(data);
 
 					if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
 		            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
@@ -539,8 +547,8 @@
 		}
 	};
 
-	vsource.pages['tools'] = {
-		url: '/views/tools.php'
+	vsource.pages['more'] = {
+		url: '/views/more.php'
 	};
 
 	vsource.pages['ask'] = {
@@ -569,8 +577,8 @@
 
 	
 
-	vsource.pages['bdcontacts'] = {
-		url: '/views/bdcontacts.php',
+	vsource.pages['sales_contacts'] = {
+		url: '/views/sales_contacts.php',
 
 		onLoad: function(){
 

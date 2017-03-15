@@ -20,8 +20,8 @@
    <li><a href="#videos"> <i class="fa fa-film"></i> Videos</a></li>
   <li><a href="#ideas"><img src="images/share.png" class="menu-icon" width="10%"> My Ideas</a></li>
   <li><a href="#offices"><img src="images/offices.png" class="menu-icon" width="10%"> Offices</a></li>
-  <li><a href="#tools"><img src="images/tools.png" class="menu-icon" width="10%"> Tools</a></li>
-  <li><a href="#bdcontacts"><i class="fa fa-handshake-o"></i> BD Contacts</a></li>
+  <li><a href="#more"><img src="images/tools.png" class="menu-icon" width="10%"> More</a></li>
+  <li><a href="#sales_contacts"><i class="fa fa-handshake-o"></i> Sales Contacts</a></li>
   
 </ul>        
 <hr/>

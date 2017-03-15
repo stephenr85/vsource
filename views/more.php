@@ -1,10 +1,10 @@
 <?php require_once('../_init.php'); ?>
 <?php vsource()->startView(); ?>
-<div id="tools" data-role="page">
+<div id="more" data-role="page">
 	<div data-role="header" data-position="fixed" class="headerbg">
 	
 	<a href="#leftnav"><i class="fa fa-bars" aria-hidden="true"></i></a>
-		<h1>Tools</h1>
+		<h1>More</h1>
 				<a href="#home"><img src="images/logo.png" alt="logo" width="" height="" /></a>
 
 	</div><!-- /header -->
@@ -14,7 +14,7 @@
 	<div class="row">
 		<p class="text-center"><strong>Grow Our Business</strong>
 		<br>
-			<a href="#bdcontacts" class="btn graybg btn-lg">BD CONTACTS</a>
+			<a href="#sales_contacts" class="btn graybg btn-lg">SALES CONTACTS</a>
 			<br>&nbsp;
 		</p>
 
@@ -53,7 +53,7 @@
 	<br><br>
 	
 	<u>North America</u><br>
-	7,900 employees <br>
+	8,000 employees <br>
 	550 communities<br>
 	30K customers
 	<br><br>
@@ -65,7 +65,7 @@
 	Wastewater service to 60M <br>
 	52M megawatt hours of energy <br>
 	31M tons of waste converted <br>
-	Consolidated revenue, $30.3B <br>
+	Consolidated revenue, $25.7B <br>
 	</strong>
 	</div>
 </div>
