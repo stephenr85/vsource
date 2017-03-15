@@ -26,12 +26,15 @@ if ($totalRows_Recordset1 == 0) {
 	$row = mysql_fetch_assoc($result);
 	$session_key = vsource_encrypt($row['userID'] . ';;;' . $row['email']);
 
-	if (strpos($email, '@veolia.com') !== false) {
-		echo '1;'.$session_key;//.';'.vsource_decrypt($session_key);
+	foreach(array('@veolia.com','@s1inc.com') as $emailDomain){
+		if (strpos($email, $emailDomain) !== false) {
+			echo '1;'.$session_key;//.';'.vsource_decrypt($session_key);
+			exit;
+		}
 	}
 	
-	else {
+	
 	//guest
-		echo '2;'.$session_key;//.';'.vsource_decrypt($session_key);
-	}
+	echo '2;'.$session_key;//.';'.vsource_decrypt($session_key);	
+	
 }
