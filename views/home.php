@@ -19,7 +19,7 @@
 </div>	<!-- end row -->
 <div class="row">
 <div class="col-xs-6 menubutton text-center">
-<a href="#ideas" data-transition="slidedown"><img src="images/sales_contacts.png"  width="70%" class="home-icon"> Sales Contacts</a>
+<a href="#sales_contacts" data-transition="slidedown"><img src="images/sales_contacts.png"  width="70%" class="home-icon"> Sales Contacts</a>
 </div>	
 <div class="col-xs-6 menubutton text-center">	<a href="#offices" data-transition="slidedown"><img src="images/offices.png"  width="40%" class="home-icon">Offices</a>
 </div>	
