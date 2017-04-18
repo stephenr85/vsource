@@ -210,7 +210,7 @@ Kevin leads national sales for the Industrial Cleaning group. The contacts below
 <h3>South Region, Gulf Coast</h3>
 <p> <strong>Jody DeLuca</strong><br>
   <a href="mailto:Jody.deluca@veolia.com">jody.deluca@veolia.com </a><br>
-  <a href="tel:231.739.1695">231.739.1695</a><br></p>
+  <a href="tel:281.739.1695">281.739.1695</a><br></p>
 </div>
 
 <div data-role="collapsible">
@@ -258,7 +258,7 @@ Kevin leads national sales for the Industrial Cleaning group. The contacts below
 <h3>Regeneration Sales</h3>
 <p><strong>Mike Daly</strong><br>
   <a href="mailto:michael.daly@veolia.com">michael.daly@veolia.com </a><br>
-  <a href="tel:610.229.5661">610.229.5661 (cell)</a><br></p>
+  <a href="tel:610.229.5661">610.229.5661</a><br></p>
 </div>
 </div>
 <div data-role="collapsible">
