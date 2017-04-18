@@ -353,7 +353,7 @@
 			$("p.rssincl-itemfeedtitle:contains(Planet)").text("Planet North America");
 
 			
-
+			/*
 
 			$("#twitbox").twitterFetcher({
 		        widgetid: '370406282223566848', 
@@ -365,7 +365,7 @@
 		        enablePermalink: true
 		    });
 
-
+			*/
 		    $('#twitbox').on('click', 'a[href^="http"]', function(evt){
 		    	evt.preventDefault();
 
