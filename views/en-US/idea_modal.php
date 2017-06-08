@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -18,4 +18,3 @@
     </div>
   </div>
 
-<?php vsource()->endView(); ?>

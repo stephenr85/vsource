@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 
 <div id="offices" data-role="page">
 	<div data-role="header" data-position="fixed" class="headerbg">
@@ -41,4 +41,3 @@
 
 	</div><!-- /content -->
 </div>
-<?php vsource()->endView(); ?>

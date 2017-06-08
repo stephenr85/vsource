@@ -1,5 +1,3 @@
-<?php require_once('../../_init.php'); ?>
-<?php vsource()->startView(); ?>
 
 <div data-role="panel" id="leftnav" data-position-fixed="true" data-position="left" data-display="overlay" data-theme="a">
 
@@ -39,4 +37,3 @@
  </div><!-- /leftnav -->
 
 
-<?php vsource()->endView(); ?>

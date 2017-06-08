@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 
 <div id="sales_contacts" data-role="page">
 	<div data-role="header" data-position="fixed" class="headerbg">
@@ -295,5 +295,5 @@ Kevin leads national sales for the Industrial Cleaning group. The contacts below
 	</div><!-- /content -->
 
 </div>
-<?php vsource()->endView(); ?>
+
 	

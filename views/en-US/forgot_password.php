@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 
 <div data-role="page" id="forgotpassword" data-transition="slide">
 
@@ -32,4 +32,3 @@
 		</div><!-- /content -->
 </div>
 
-<?php vsource()->endView(); ?>

@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 
 <div id="news" data-role="page">
 
@@ -68,4 +68,3 @@
 	</div>
 	</div><!-- /content -->
 </div>
-<?php vsource()->endView(); ?>

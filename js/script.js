@@ -1,17 +1,20 @@
 
 (function($){
-
+	
 	vsource = window.vsource = {};
+	vsource.hasDeviceReady = typeof window.cordova !== 'undefined';
+	vsource.locale = 'en-US';
+	
 	vsource.apiUrl = 'http://vesnaus.com/vsource/v1.6';
 	//vsource.apiUrl = '';
 	vsource.gapiKey = 'AIzaSyAEyLPdX3kvIkGbetsf95OI5IqmQR4jOFc';
 	vsource.initHash = window.location.hash;	
 
-
-
 	vsource.log = function(){
 		console.log(arguments);
 	};
+
+
 
 	vsource.alert = function(msg, callback, title, buttonName){
 		if(!title) title = document.title;
@@ -24,6 +27,23 @@
 				callback();
 			}			
 		}		
+	};
+
+	vsource.getUserLocale = function(){
+		if(typeof navigator.globalization !== 'undefined'){
+			navigator.globalization.getLocaleName(
+		        function (locale) {
+		        	if(locale.value.indexOf('fr-') > -1){
+		        		vsource.locale = 'fr-CA';
+		        	}else{
+		        		//vsource.locale = 'en-US';
+		        	}
+		        },
+		        function () {
+		        	vsource.log('Error getting locale\n');
+		        }
+		    );
+		}
 	};
 
 
@@ -44,11 +64,21 @@
 		$.ajaxSetup({
 			beforeSend: function (xhr) {
 				//vsource.log(typeof(this.data));
-				if(!this.data) this.data = 'auth=' + vsource.authToken;
-				else if (typeof(this.data) === 'string') this.data += '&auth=' + encodeURIComponent(vsource.authToken);
+				/*
+				console.log(this);
+				if(!this.data) this.data = 'auth=' + vsource.authToken + '&locale=' + vsource.locale;
+				else if (typeof(this.data) === 'string') this.data += '&auth=' + encodeURIComponent(vsource.authToken)+ '&locale=' + vsource.locale;
 		        //xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 		        //xhr.setRequestHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 		        //xhr.setRequestHeader('Authorization','Token token="' + vsource.authToken + '"');
+		        console.log('data:' + this.data);
+		        if(this.type == 'GET'){
+		        	this.url = this.url.replace(/((\.\/[a-z][0-9])*\?+[=%&a-z0-9]*)&?token=[a-z0-9]*&?([=%&a-z0-9]*)/gi, "$1$3");
+		        }*/
+		    },
+		    data: {
+		    	locale: vsource.locale,
+		    	auth: encodeURIComponent(vsource.authToken)
 		    }
 		});
 		vsource.authToken = token;
@@ -112,6 +142,7 @@
 
 
 	vsource.init = function(){
+
 		//remove local stylesheet now that remote JS has loaded
 		$('link[href="css/styles.css"]').remove();
 
@@ -137,27 +168,47 @@
 		}
 
 		//Load left nav panel
-		$.get(vsource.apiUrl + '/views/panels/leftnav.php').then(function(html){
+		$.get(vsource.apiUrl + '/view.php/panels/leftnav').then(function(html){
 			$(html).appendTo('body').panel();
 		});
-		
-		gapi.load('client', vsource.googleApiClientReady);
+
+		vsource.loadGoogleClient();
+		vsource.loadYouTubeApi();
+		setInterval(function(){
+			//vsource.loadGoogleClient();
+			//vsource.loadYouTubeApi();
+		}, 1000 * 60 * 5);
 
 		vsource.domReady();
 	};
 
-	vsource.googleApiClientReady = function(){
-		console.log('googleApiClientReady');
+	vsource.loadGoogleClient = function(){
+		vsource.whenGoogleClient = $.Deferred();
 
-		gapi.client.setApiKey(vsource.gapiKey);
-		gapi.client.load('youtube', 'v3', function(){
-			console.log('YouTube API loaded');
-			vsource.whenYouTube.resolve();
+		gapi.load('client', function(){
+			vsource.log(['Google client ready', arguments]);
+			gapi.client.setApiKey(vsource.gapiKey);
+			vsource.whenGoogleClient.resolve();
 		});
 
+		return vsource.whenGoogleClient;
 	};
 
-	vsource.whenYouTube = $.Deferred();
+	vsource.loadYouTubeApi = function(){
+		vsource.whenYouTube = $.Deferred();
+
+		vsource.whenGoogleClient.done(function(){
+
+			gapi.client.load('youtube', 'v3', function(){
+				console.log(['YouTube API loaded', arguments]);
+				vsource.whenYouTube.resolve();
+			});		
+		});	
+
+		return vsource.whenYouTube;	
+	};
+
+	
 
 
 	vsource.domReady = function(context){
@@ -186,28 +237,34 @@
 		
 	});
 	
+	if(vsource.hasDeviceReady){
+		document.addEventListener("deviceready", onDeviceReady, false);
 
-	document.addEventListener("deviceready", onDeviceReady, false);
+	    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+	    //
+	    function onDeviceReady() {
+	        // Now safe to use the PhoneGap API
+	        console.log('deviceready');
+	        vsource.getUserLocale();
+	        setTimeout(vsource.init, 0);
+	    }
+	}else{
+		$(document).ready(function() {
+			console.log('docready');
+			vsource.getUserLocale();
+			setTimeout(vsource.init, 0);
+		});
+	}
 
-    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
-    //
-    function onDeviceReady() {
-        // Now safe to use the PhoneGap API
-    }
 
-
-	$( document ).bind( "mobileinit", function() {
+	$(document).on("mobileinit", function() {
 	    // Make your jQuery Mobile framework configuration changes here!
 	   //doesn't seem to be firing
 	   //alert('mobileinit');
 	});
 
 
-	$(document).ready(function() {
-		vsource.init();
-	});
-
-
+	
 
 
 	$(document).on('pagebeforeshow', function(evt, info){
@@ -217,6 +274,7 @@
 			pageObj = vsource.pages[pageName];
 
 		if(pageObj){
+			gaU('send', 'pageview', window.location.protocol === 'file:' ? location.hash : window.location);
 			if(pageObj.onShow) pageObj.onShow();
 		}
 	});
@@ -256,7 +314,7 @@
 	vsource.pages = {};
 
 	vsource.pages['splash'] = {
-		url: '/views/splash.php',
+		url: '/view.php/splash',
 
 		onLoad: function(){
 			var random = Math.floor(100000 + Math.random() * 900000);
@@ -291,44 +349,44 @@
 	};
 
 	vsource.pages['register'] = {
-		url: '/views/register.php'
+		url: '/view.php/register'
 	};
 
 	vsource.pages['register_validation'] = {
-		url: '/views/register_validation.php'
+		url: '/view.php/register_validation'
 	};
 
 	vsource.pages['forgotpassword'] = {
-		url: '/views/forgot_password.php',
+		url: '/view.php/forgot_password',
 
 		onLoad: function(){
-			$.get(vsource.apiUrl + '/views/password_tempcode.php').then(function(response){
+			$.get(vsource.apiUrl + '/view.php/password_tempcode').then(function(response){
 				$(response).appendTo('body');
 			});
-			$.get(vsource.apiUrl + '/views/password_change.php').then(function(response){
+			$.get(vsource.apiUrl + '/view.php/password_change').then(function(response){
 				$(response).appendTo('body');
 			});
 		}
 	};
 
 	vsource.pages['guesthome'] = {
-		url: '/views/guests/home.php',
+		url: '/view.php/guests/home',
 		authGroup: 2,
 		isHome: true
 	};
 
 	vsource.pages['guestservices'] = {
-		url: '/views/guests/services.php'
+		url: '/view.php/guests/services'
 	};
 
 	vsource.pages['gueststats'] = {
-		url: '/views/guests/stats.php'
+		url: '/view.php/guests/stats'
 	};
 
 
 
 	vsource.pages['home'] = {
-		url: '/views/home.php',
+		url: '/view.php/home',
 		authGroup: 1,
 		isHome: true,
 		onShow: function(){
@@ -337,7 +395,7 @@
 	};
 
 	vsource.pages['news'] = {
-		url: '/views/news.php',
+		url: '/view.php/news',
 
 		onLoad: function(){
 			$('#twitterlink').click(function(){
@@ -416,17 +474,16 @@
 	};
 
 	vsource.pages['videos'] = {
-		url: '/views/videos.php',
+		url: '/view.php/videos',
 
 		onLoad: function(){
 			var I = this;
 
-			$.get(vsource.apiUrl + '/views/youtube_modal.php').then(function(response){
+			$.get(vsource.apiUrl + '/view.php/youtube_modal').then(function(response){
 				$(response).appendTo('body');
 			});
 
 
-			I.loadAboutVideos();
 			$('[href="#videofeed"]').on('click', function(){
 				I.loadAboutVideos();
 			});
@@ -435,86 +492,104 @@
 				I.loadServicesVideos();
 			});
 			
-			
 		},
 
 		onShow: function(){
-			var I = this;			
+			var I = this;	
+
+			setTimeout(function(){
+				I.loadAboutVideos();
+			}, 1)
+			
+			
+					
 		},
 
 		loadAboutVideos: function(){
+			var I = this;			
 
-			return vsource.whenYouTube.done(function(){
+			if(!I.aboutVideosLoaded){
+				$('.loading').show();
+				return vsource.whenYouTube.done(function(){
+					var request = gapi.client.youtube.playlistItems.list({
+						playlistId: 'PLH-nnUXtAYzpIJxKuLmldQ8EW0Kyu6dSL',
+						maxResults: 25,
+					    relevanceLanguage: 'en',
+					    type: 'video',
+					    part: 'snippet'
+					});
 
+					request.execute(function(data){
+						vsource.log(data);
+						$('.loading').hide();
+						if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
+			            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
+			            var items = data.items,
+			            	videoList = "";
+			            $("#pageTokenNext").val(data.nextPageToken);
+			            $("#pageTokenPrev").val(data.prevPageToken);
 
-				var request = gapi.client.youtube.playlistItems.list({
-					playlistId: 'PLH-nnUXtAYzpIJxKuLmldQ8EW0Kyu6dSL',
-					maxResults: 25,
-				    relevanceLanguage: 'en',
-				    type: 'video',
-				    part: 'snippet'
+			            $.each(items, function(index,e) {
+			                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
+			            });
+			            $("#hyv-watch-related").html(videoList);
+			            I.aboutVideosLoaded = true;
+					});
+
 				});
-
-				request.execute(function(data){
-					vsource.log(data);
-
-					if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
-		            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
-		            var items = data.items, videoList = "";
-		            $("#pageTokenNext").val(data.nextPageToken);
-		            $("#pageTokenPrev").val(data.prevPageToken);
-		            $.each(items, function(index,e) {
-		                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
-		            });
-		            $("#hyv-watch-related").html(videoList);
-				});
-
-			});
+			}
 
 		},
 
 		loadServicesVideos: function(){
+			var I = this;
 
-			return vsource.whenYouTube.done(function(){
+			if(!I.serviceVideosLoaded){
+				$('.loading').show();
+				return vsource.whenYouTube.done(function(){
 
-				var request = gapi.client.youtube.playlistItems.list({
-				    playlistId: 'PLH-nnUXtAYzp7UDj29arg6RlyLDuJ-cEa',
-				    maxResults: 25,
-				    relevanceLanguage: 'en',
-				    type: 'video',
-				    part: 'snippet'
+					var request = gapi.client.youtube.playlistItems.list({
+					    playlistId: 'PLH-nnUXtAYzp7UDj29arg6RlyLDuJ-cEa',
+					    maxResults: 25,
+					    relevanceLanguage: 'en',
+					    type: 'video',
+					    part: 'snippet'
+					});
+
+					request.execute(function(data){
+						vsource.log(data);
+						$('.loading').hide();
+						if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
+			            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
+			            var items = data.items,
+			            	videoList = "";
+			            $("#pageTokenNext").val(data.nextPageToken);
+			            $("#pageTokenPrev").val(data.prevPageToken);
+
+			            $.each(items, function(index,e) {
+			                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
+			            });
+			            $("#hyv-global-related").html(videoList);
+			            I.serviceVideosLoaded = true;
+					});
+
 				});
-
-				request.execute(function(data){
-					vsource.log(data);
-
-					if (typeof data.prevPageToken === "undefined") {$("#pageTokenPrev").hide();}else{$("#pageTokenPrev").show();}
-		            if (typeof data.nextPageToken === "undefined") {$("#pageTokenNext").hide();}else{$("#pageTokenNext").show();}
-		            var items = data.items, videoList = "";
-		            $("#pageTokenNext").val(data.nextPageToken);
-		            $("#pageTokenPrev").val(data.prevPageToken);
-		            $.each(items, function(index,e) {
-		                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
-		            });
-		            $("#hyv-global-related").html(videoList);
-				});
-
-			});
+			}
 		}
 	};
 
 	vsource.pages['ideas'] = {
-		url: '/views/ideas.php',
+		url: '/view.php/ideas',
 
 		onLoad: function(){
-			$.get(vsource.apiUrl + '/views/idea_modal.php').then(function(response){
+			$.get(vsource.apiUrl + '/view.php/idea_modal').then(function(response){
 				$(response).appendTo('body');
 			});
 		}
 	};
 
 	vsource.pages['offices'] = {
-		url: '/views/offices.php',
+		url: '/view.php/offices',
 
 		isLocatorInitialized: false,
 		onLoad: function(){
@@ -548,23 +623,23 @@
 	};
 
 	vsource.pages['more'] = {
-		url: '/views/more.php'
+		url: '/view.php/more'
 	};
 
 	vsource.pages['ask'] = {
-		url: '/views/ask.php'
+		url: '/view.php/ask'
 	};
 
 	vsource.pages['join'] = {
-		url: '/views/join.php'
+		url: '/view.php/join'
 	};
 
 	vsource.pages['about'] = {
-		url: '/views/about.php',
+		url: '/view.php/about',
 
 		onLoad: function(){
 
-			$.get(vsource.apiUrl + '/views/feedback_modal.php').then(function(response){
+			$.get(vsource.apiUrl + '/view.php/feedback_modal').then(function(response){
 				$(response).appendTo('body');
 			});
 
@@ -578,7 +653,7 @@
 	
 
 	vsource.pages['sales_contacts'] = {
-		url: '/views/sales_contacts.php',
+		url: '/view.php/sales_contacts',
 
 		onLoad: function(){
 

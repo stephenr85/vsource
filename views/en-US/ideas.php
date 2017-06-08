@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 <div id="ideas" data-role="page">
 <div data-role="header" data-position="fixed" class="headerbg">
 	<a href="#leftnav"><i class="fa fa-bars" aria-hidden="true"></i></a>
@@ -32,4 +32,3 @@ Ideas are not anonymous.
 	
 </div><!-- /content -->
 </div>
-<?php vsource()->endView(); ?>

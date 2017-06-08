@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 
 <div id="ask" data-role="page">
 	<div data-role="header" data-position="fixed" class="headerbg">
@@ -29,4 +29,3 @@ Ask us and we’ll do our best to answer. Questions are not anonymous.<br><br>
 		
 	</div>
 </div>
-<?php vsource()->endView(); ?>

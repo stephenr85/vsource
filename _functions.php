@@ -14,6 +14,10 @@ class VSourceApp {
 		return self::$_instance;
 	}
 
+	public function getRootDirectory(){
+		return dirname(__FILE__);
+	}
+
 	private $_db = null;
 	public function db(){
 		if(!$this->_db){
@@ -64,6 +68,10 @@ class VSourceApp {
 		}
 
 		return $is_authed;
+	}
+
+	public function getLocale(){
+		return isset($_REQUEST['locale']) ? $_REQUEST['locale'] : VSOURCE_LOCALE;
 	}
 
 	

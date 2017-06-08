@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 
 <div id="register" data-role="page">
 <div data-role="header" class="headerbg">
@@ -52,4 +52,3 @@
 	<!-- end:Main Form -->
 	</div><!-- /content -->
 </div>
-<?php vsource()->endView(); ?>

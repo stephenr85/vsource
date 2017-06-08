@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 <div id="about" data-role="page">
 	<div data-role="header" data-position="fixed" class="headerbg">
 	
@@ -49,4 +49,3 @@ We'd love to hear your questions or ideas about the app, which you can submit be
 	</div>
 </div>
 
-<?php vsource()->endView(); ?>

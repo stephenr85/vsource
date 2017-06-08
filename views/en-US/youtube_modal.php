@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 <!-- youtube modal -->
 <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">    
 	<div class="modal-dialog">
@@ -12,4 +12,3 @@
     </div>
 </div>
 
-<?php vsource()->endView(); ?>

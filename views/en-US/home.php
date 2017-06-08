@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 
 <div data-role="page" id="home">
 <div data-role="header" class="headerbg">
@@ -33,4 +33,3 @@ Join</a>
 	</div><!-- /content -->
 </div>
 
-<?php vsource()->endView(); ?>

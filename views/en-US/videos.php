@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 <div id="videos" data-role="page">
 <div data-role="header"  class="headerbgvideo" data-position="fixed">
 	
@@ -28,16 +28,16 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="videofeed"> 
 
-                            <ul id="hyv-watch-related" class="hyv-video-list" data-filter="true" data-input="#videofeeding">
-                            </ul>
+                            <table id="hyv-watch-related" class="hyv-video-list" data-filter="true" data-input="#videofeeding">
+                            </table>
                   
 
 
 
     </div>
     <div role="tabpanel" class="tab-pane" id="globalfeed">
-                        <ul id="hyv-global-related" class="hyv-video-list" data-filter="true" data-input="#videofeeding">
-                            </ul>
+                        <table id="hyv-global-related" class="hyv-video-list" data-filter="true" data-input="#videofeeding">
+                            </table>
                   
     </div>
   </div>
@@ -49,4 +49,3 @@
 	
 	</div><!-- /content -->
 </div>
-<?php vsource()->endView(); ?>

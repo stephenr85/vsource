@@ -1,5 +1,5 @@
-<?php require_once('../_init.php'); ?>
-<?php vsource()->startView(); ?>
+
+
 
 <div id="register_validation" data-role="page">
 <div data-role="header" class="headerbg">
@@ -33,4 +33,3 @@
      </div> <!-- end main-content -->
 		</div><!-- /content -->
 </div>
-<?php vsource()->endView(); ?>
