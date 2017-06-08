@@ -2,10 +2,11 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	connect = require('gulp-connect'),
     concat = require('gulp-concat'),
-    cleanCSS = require('gulp-clean-css');
+    cleanCSS = require('gulp-clean-css'),
+    watch = require('gulp-watch');
 
-var outputDir = '../app-dist';
-
+//var outputDir = '../app-dist';
+var outputDir = '../cordova/app-dist/www';
 /* var sass = require('gulp-sass');
 
 gulp.task('sass', function() {
@@ -29,6 +30,7 @@ gulp.task('data', function(){
 
 gulp.task('js1', function() {
   gulp.src([
+    '../js/analytics.js',
   	'../js/index.js',
   	'../js/jquery.js',
   	'../js/jquery-ui.js',
@@ -47,7 +49,7 @@ gulp.task('js1', function() {
   	'../js/lity.min.js',
 
   	])
-  .pipe(uglify())
+  //.pipe(uglify())
   .pipe(concat('scripts.js'))
   .pipe(gulp.dest(outputDir+'/js'))
   .pipe(connect.reload())
@@ -118,6 +120,16 @@ gulp.task('copy-images', function(){
    .pipe(gulp.dest(outputDir+'/images'))
 });
 
+
+gulp.task('stream-css', function(){
+  gulp.watch('../css/**/*.css', ['css']);
+});
+
+gulp.task('stream-js', function(){
+  gulp.watch('../js/**/*.js', ['js']);
+});
+
+gulp.task('stream', ['stream-css', 'stream-js']);
 
 
 /*
