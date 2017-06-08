@@ -29,6 +29,7 @@
     "gulp-sass": "latest",
     "gulp-uglify": "latest",
     "gulp-util": "latest",
+    "gulp-watch": "^4.3.11",
     "ios-sim": "^5.0.13",
     "phonegap": "^6.4.2"
   }
