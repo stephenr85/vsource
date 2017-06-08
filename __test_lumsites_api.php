@@ -1,7 +1,6 @@
 <?php 
 
 require_once 'vendor/autoload.php';
-require_once('src/Google/Service/LumSites.php');
 
 $client = new Google_Client();
 $client->setApplicationName('lumsites');

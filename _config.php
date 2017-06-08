@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL ^ E_DEPRECATED);
 
+define('VSOURCE_DIR', __DIR__);
 define('VSOURCE_DB_HOST', 'localhost');
 define('VSOURCE_DB_NAME', 'smoov22_vsource');
 define('VSOURCE_DB_USER', 'smoov22_vsource');
