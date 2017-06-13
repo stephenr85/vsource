@@ -45689,7 +45689,6 @@ this.tpl=_.template(PrettyJSON.tpl.Leaf);$(this.el).html(this.tpl(state));return
 	};
 
 
-
 	vsource.alert = function(msg, callback, title, buttonName){
 		if(!title) title = document.title;
 
@@ -46072,6 +46071,7 @@ this.tpl=_.template(PrettyJSON.tpl.Leaf);$(this.el).html(this.tpl(state));return
 		url: '/view.php/news',
 
 		onLoad: function(){
+			/*
 			$('#twitterlink').click(function(){
 				$('.twitterbox').hide();
 			});
@@ -46080,13 +46080,8 @@ this.tpl=_.template(PrettyJSON.tpl.Leaf);$(this.el).html(this.tpl(state));return
 			$('#newsclick').click(function(){
 				$('.twitterbox').show();
 			});
-
-			$("p.rssincl-itemfeedtitle:contains(News)").text("VNA Newsroom");
-			$("p.rssincl-itemfeedtitle:contains(Planet)").text("Planet North America");
-
-			
+			*/
 			/*
-
 			$("#twitbox").twitterFetcher({
 		        widgetid: '370406282223566848', 
 		        lang: 'en',
@@ -46096,14 +46091,7 @@ this.tpl=_.template(PrettyJSON.tpl.Leaf);$(this.el).html(this.tpl(state));return
 		        maxTweets: 150,
 		        enablePermalink: true
 		    });
-
 			*/
-		    $('#twitbox').on('click', 'a[href^="http"]', function(evt){
-		    	evt.preventDefault();
-
-		    	window.open(this.href, $(this).attr('target') || '_blank');
-		    });
-
 
 		    $('#twitbox').on('click', 'a[href^="http"]', function(evt){
 		    	evt.preventDefault();
@@ -46111,38 +46099,34 @@ this.tpl=_.template(PrettyJSON.tpl.Leaf);$(this.el).html(this.tpl(state));return
 		    	window.open(this.href, $(this).attr('target') || '_blank');
 		    });
 
-		    (function() {
-			  var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
-			  s.src = 'http://output17.rssinclude.com/output?type=asyncjs&id=1096476&hash=aa04a2a29484dc3e2905773e0dd03a6a';
-			  document.getElementsByTagName('head')[0].appendChild(s);
-			})();
 
-			var onInitFeed = setInterval(function(){
+		    $('#twitbox').on('click', 'a[href^="http"]', function(evt){
+		    	evt.preventDefault();
 
-				if($('.rssincl-content').length){
-					$('.rssincl-entry').not(':has(.rssincl-itemimage)').prepend( "<div class='rssincl-itemimage'><img src='" + vsource.apiUrl + "/images/veolianewslogo.png' ></div>" );
-				    $('.rssincl-content').attr('data-filter','true');
-					$('.rssincl-content').attr('data-input','#' + 'newsfeeder');
-					$('.rssincl-content').filterable();
-					clearInterval((onInitFeed));
-				}
-
-			}, 250);
-
+		    	window.open(this.href, $(this).attr('target') || '_blank');
+		    });
 	
-		    
-		    $('.rssfeed').on('click', 'a[href*="rss-site-updates"]', function(evt){
+
+		}
+	};
+
+	vsource.pages['news_twitter'] = {
+		url: '/view.php/news_twitter',
+
+		onLoad: function(){			
+
+		    $('#twitbox').on('click', 'a[href^="http"]', function(evt){
 		    	evt.preventDefault();
-		    	window.open('http://www.veolianorthamerica.com/en/media/media/newsroom', $(this).attr('target') || '_blank');
-		    	return false;
+
+		    	window.open(this.href, $(this).attr('target') || '_blank');
 		    });
 
-		    $('#myTabs a').click(function (e) {
-			  e.preventDefault();
-			  $(this).tab('show');
-			});
 
+		    $('#twitbox').on('click', 'a[href^="http"]', function(evt){
+		    	evt.preventDefault();
 
+		    	window.open(this.href, $(this).attr('target') || '_blank');
+		    });
 		    
 		}
 	};
@@ -46153,18 +46137,8 @@ this.tpl=_.template(PrettyJSON.tpl.Leaf);$(this.el).html(this.tpl(state));return
 		onLoad: function(){
 			var I = this;
 
-			$.get(vsource.apiUrl + '/view.php/youtube_modal').then(function(response){
-				$(response).appendTo('body');
-			});
 
-
-			$('[href="#videofeed"]').on('click', function(){
-				I.loadAboutVideos();
-			});
-
-			$('[href=#globalfeed]').on('click', function(){
-				I.loadServicesVideos();
-			});
+			I.loadPlayer();
 			
 		},
 
@@ -46172,14 +46146,22 @@ this.tpl=_.template(PrettyJSON.tpl.Leaf);$(this.el).html(this.tpl(state));return
 			var I = this;	
 
 			setTimeout(function(){
-				I.loadAboutVideos();
+				I.loadVideos();
 			}, 1)
 			
 			
 					
 		},
 
-		loadAboutVideos: function(){
+		loadPlayer: function(){
+			if($('#youtube_modal').length < 1){
+				$.get(vsource.apiUrl + '/view.php/youtube_modal').then(function(response){
+					$(response).appendTo('body');
+				});
+			}
+		},
+
+		loadVideos: function(){
 			var I = this;			
 
 			if(!I.aboutVideosLoaded){
@@ -46206,16 +46188,21 @@ this.tpl=_.template(PrettyJSON.tpl.Leaf);$(this.el).html(this.tpl(state));return
 			            $.each(items, function(index,e) {
 			                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
 			            });
-			            $("#hyv-watch-related").html(videoList);
+			            $("#video-table").html(videoList);
 			            I.aboutVideosLoaded = true;
 					});
 
 				});
 			}
 
-		},
+		}
+	};
 
-		loadServicesVideos: function(){
+
+	vsource.pages['videos_services'] = $.extend({}, vsource.pages['videos'], {
+		url: '/view.php/videos_services',
+
+		loadVideos: function(){
 			var I = this;
 
 			if(!I.serviceVideosLoaded){
@@ -46243,14 +46230,14 @@ this.tpl=_.template(PrettyJSON.tpl.Leaf);$(this.el).html(this.tpl(state));return
 			            $.each(items, function(index,e) {
 			                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
 			            });
-			            $("#hyv-global-related").html(videoList);
+			            $("#video-table").html(videoList);
 			            I.serviceVideosLoaded = true;
 					});
 
 				});
 			}
 		}
-	};
+	});
 
 	vsource.pages['ideas'] = {
 		url: '/view.php/ideas',

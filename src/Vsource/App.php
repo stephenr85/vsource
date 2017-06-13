@@ -5,6 +5,8 @@ class App {
 	//Singleton
     static private $_instance = null;
 
+    public $cache;
+
 	public static function & getInstance()
 	{
 		if (is_null(self::$_instance))
@@ -12,6 +14,10 @@ class App {
 		 	self::$_instance = new self();
 		}
 		return self::$_instance;
+	}
+
+	public function __construct(){
+		$this->cache = new Cache();
 	}
 
 	public function getRootDirectory(){
@@ -74,6 +80,12 @@ class App {
 		return isset($_REQUEST['locale']) ? $_REQUEST['locale'] : VSOURCE_LOCALE;
 	}
 
+	public function getLanguage(){
+		$locale = $this->getLocale();
+		$lang = substr($locale, 0, 2);
+		return $lang;
+	}
+
 	
 	public function getUser($id){
 		$id = mysql_real_escape_string($id);
@@ -96,35 +108,30 @@ class App {
 
 
 	public function getUrlContent($url){
-	
-		if(function_exists('file_get_contents')){
+		$cacheKey = $this->cache->getKey($url);
+		if($this->cache->has($cacheKey)){
+			return $this->cache->get($cacheKey);
+		}
+		try{
+			$client = new \GuzzleHttp\Client();
+			$res = $client->request('GET', $url, array(
+				//'debug'=>true,
+				//'allow_redirects'=>false
+			    //'auth' => ['user', 'pass']
+			));
 
-			return file_get_contents($url);
+			$body = $res->getBody();
 
-		}else{
-
-
-			$ch = curl_init($url);
-		
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_VERBOSE, 1);
-			curl_setopt($ch, CURLOPT_HEADER, 1);
-
-			$response = curl_exec($ch);
-
-			$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-			$header = substr($response, 0, $header_size);
-			$body = substr($response, $header_size);
-
-			// Check for errors and display the error message
-			if (false === $body){
-	        	$body = implode(' : ', array_filter(array('Error '.curl_errno($ch), curl_error($ch))));
-			}
-
-	        curl_close($ch);
+			$this->cache->set($cacheKey, $body);
 
 			return $body;
+
+		}catch(RequestException $ex){
+
+			return var_export($ex, TRUE);
 		}
+		return NULL;
+		
 	}
 
 	public function encrypt($text, $salt = VSOURCE_SALT){
@@ -145,5 +152,14 @@ class App {
 			}		
 		}
 		return $result;
+	}
+
+	private $_lumSitesAdapter;
+	public function getLumSitesAdapter(){
+		if(!is_object($this->_lumSitesAdapter)){
+			$this->_lumSitesAdapter = new \Vsource\LumSites\Adapter();
+			$this->_lumSitesAdapter->authorize();
+		}
+		return $this->_lumSitesAdapter;
 	}
 }

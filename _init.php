@@ -9,3 +9,7 @@ require_once('_functions.php');
 $dbc = vsource()->db();
 
 $_SAFE = vsource_safe_array($_REQUEST);
+
+if(isset($_SAFE['clearcache']) && $_SAFE['clearcache'] == 1){
+	vsource()->cache->clear();
+}

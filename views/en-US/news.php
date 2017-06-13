@@ -7,64 +7,50 @@
 
 	<a href="#leftnav"><i class="fa fa-bars fa-4x" aria-hidden="true"></i></a>
 <h1>
-	<a href="#newsfeed" id="newsclick" aria-controls="news" role="pill" data-toggle="pill">News</a>
+	  <a href="#news" id="newsclick" aria-controls="news">News</a>
     <span class="slashtwo">/</span>
-    <a href="#twitter" id="twitterlink" aria-controls="twitter" role="pill" data-toggle="pill">Twitter</a>
+    <a href="#news_twitter" id="twitterlink" aria-controls="twitter">Twitter</a>
   </h1>
 				<a href="#home"><img src="images/logo.png" alt="logo" width="" height="" /></a>
 <div class="graybackground minus">
 	<div class="searchbox twitterbox">
 		 <form id="newssearch">
-    <input data-type="search" placeholder="Search" class="form-control" id="newsfeeder">
+    <input data-type="search" placeholder="Search" class="form-control" id="newsfeedsearch">
 </form></div>	
 					</div>
 	</div><!-- /header -->
-
+<br><br>
 	<div role="main" class="ui-content">
 	<div class="row">
 	<div class="col-xs-12">
   <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel"  class="tab-pane fade in active" id="newsfeed">
-    <div class="rssfeed">
     
-    	<div id="rssincl-box-container-1096476"></div>
-    </div>
+  <?php
+        $newsFeed = new Vsource\NewsFeed();
+        
+        $newsFeed->load();
 
-    	<?php 
-    		if(false){
-    			/*
-	    		<script type="text/javascript" src="http://output91.rssinclude.com/output?type=js&amp;id=1096476&amp;hash=cd5ca1beade41004defb6fe09d33b89a"></script>
-	    		*/
-	    		$rssJS = vsource()->getUrlContent('http://output91.rssinclude.com/output?type=js&id=1096476&hash=cd5ca1beade41004defb6fe09d33b89a');
+        //print_r($newsFeed->getFeedItems());
+  ?>
+      <div class="newsfeed-content" data-filter="true" data-input="#newsfeedsearch">
+       <?php foreach($newsFeed->getFeedItems() as $feedItem){ ?>
 
-	    		$rssJS = trim(stripcslashes($rssJS));
-	    		$rssJS = preg_replace('/^document.write\("/', '', $rssJS);
-	    		$rssJS = preg_replace('/"\);$/', '', $rssJS);
-	    		echo $rssJS;
-    		}
-    		
+          <div class="newsfeed-entry">
+            <div class="newsfeed-itemimage">
+              <a href="<?php echo $feedItem['url'] ?>" target="_blank"> 
+                <img src="<?php echo $feedItem['image'] ?>" alt="<?php echo htmlspecialchars($feedItem['title']) ?>"  width="150.00" height="72.02380952381">
+              </a>
+            </div>
+            <p class="newsfeed-itemfeedtitle"><a href="<?php echo $feedItem['feedUrl'] ?>" target="_blank"><?php echo $feedItem['feedName'] ?></a></p>
+            <p class="newsfeed-itemdate"><?php echo date('F j, Y', $feedItem['date']) ?></p>
+            <p class="newsfeed-itemtitle"><a href="<?php echo $feedItem['url'] ?>" target="_blank"><?php echo $feedItem['title'] ?></a></p>
+            <div class="newsfeed-clear"></div>
+          </div>
 
+        <?php } ?>
 
-    	?>
+        </div>
 
-    	<?php 
-    	if(false){
-    		@readfile('http://output85.rssinclude.com/output?type=php&id=1096476&hash=2ee63107f4dc74414b55fcebb7193ffd');
-    	}
-    	?>
-
-       </div>
-    <div role="tabpanel" class="tab-pane fade" id="twitter">
-    
-   <div id="twitbox">
-    
-    <a class="twitter-timeline" href="https://twitter.com/Veolia_NA">Tweets by Veolia_NA</a> <script src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div> 
-       </div>
-</div>
-	</div>
-	</div>
+	 </div>
 	</div><!-- /content -->
 </div>
