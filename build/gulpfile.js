@@ -5,8 +5,8 @@ var gulp = require('gulp'),
     cleanCSS = require('gulp-clean-css'),
     watch = require('gulp-watch');
 
-//var outputDir = '../app-dist';
-var outputDir = '../cordova/app-dist/www';
+var outputDir = '../app-dist';
+//var outputDir = '../cordova/app-dist/www';
 /* var sass = require('gulp-sass');
 
 gulp.task('sass', function() {

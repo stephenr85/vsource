@@ -1,6 +1,10 @@
 <?php
 namespace Vsource;
 
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\Loader\PhpFileLoader;
+
 class App {
 	//Singleton
     static private $_instance = null;
@@ -77,13 +81,24 @@ class App {
 	}
 
 	public function getLocale(){
-		return isset($_REQUEST['locale']) ? $_REQUEST['locale'] : VSOURCE_LOCALE;
+		return isset($_REQUEST['locale']) ? str_replace('-', '_', $_REQUEST['locale']) : VSOURCE_LOCALE;
 	}
 
 	public function getLanguage(){
 		$locale = $this->getLocale();
 		$lang = substr($locale, 0, 2);
 		return $lang;
+	}
+
+	public function getTranslator($locale = NULL){
+		if(!$locale) $locale = $this->getLocale();
+		setlocale(LC_TIME, $locale);
+		$translator = new Translator($locale, new MessageSelector());
+
+		$translator->addLoader('php', new PhpFileLoader());
+		$translator->addResource('php', './lang/fr_CA.php', 'fr_CA');
+
+		return $translator;
 	}
 
 	

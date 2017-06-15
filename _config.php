@@ -7,7 +7,7 @@ define('VSOURCE_DB_NAME', 'smoov22_vsource');
 define('VSOURCE_DB_USER', 'smoov22_vsource');
 define('VSOURCE_DB_PASSWORD', 'Diamondpony30$');
 define('VSOURCE_SALT', 'fd4U2wFW5O6s2ZP727IKMa07lbl8K0qW');
-define('VSOURCE_LOCALE', 'en-US');
+define('VSOURCE_LOCALE', 'en_US');
 
 define('VSOURCE_LUMSITES_AUTH_CONFIG', 'private/client_secret_861547954802-5fso73p0o2mp18frr8keg1jjmarkoddc.apps.googleusercontent.com.json');
 define('VSOURCE_LUMSITES_AUTH_SCOPES', 'https://www.googleapis.com/auth/userinfo.email');

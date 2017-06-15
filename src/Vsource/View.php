@@ -57,7 +57,7 @@ class View {
 				break;
 			}
 		}
-
+		
 		return $finalPath;
 	}
 
@@ -72,6 +72,7 @@ class View {
 		require($path);
 
 		$content = $this->endView();
+		$content .= '<!-- '.$this->getApp()->getTranslator()->getLocale().' : '.str_replace($this->getApp()->getRootDirectory(), '', $path).'-->';
 
 		return $content;
 	}

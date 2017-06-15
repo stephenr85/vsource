@@ -29,6 +29,13 @@
 	};
 
 	vsource.getUserLocale = function(){
+		//Look for query string override first
+		if(vsource.queryString('locale')){
+			vsource.locale = vsource.queryString('locale');
+			return;
+		}
+
+		//Look at device setting
 		if(typeof navigator.globalization !== 'undefined'){
 			navigator.globalization.getLocaleName(
 		        function (locale) {
@@ -45,6 +52,15 @@
 		}
 	};
 
+	vsource.queryString = function (name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
 
 	vsource.logout = function(){
 		
@@ -145,12 +161,19 @@
 		//remove local stylesheet now that remote JS has loaded
 		$('link[href="css/styles.css"]').remove();
 
+		vsource.setAuthToken(vsource.getAuthToken());
 
 		$.mobile.page.prototype.options.domCache = true;
 	    $.mobile.allowCrossDomainPages = true;
 	    $.support.cors = true;   
 
 	    var $activePage = $(':mobile-pagecontainer').pagecontainer('getActivePage');
+
+	    //Replace splash with server version
+	    $.get(vsource.apiUrl + '/view.php/splash').then(function(html){
+			//$('#splash').replaceWith(html);
+			//vsource.pages['splash'].onLoad();
+		});
 
 	    //Send user to splash/login by default
 		if(!vsource.authToken){
@@ -598,10 +621,10 @@
 					},
 					dataType: 'json',
 					infowindowTemplatePath: vsource.apiUrl + '/js/plugins/storeLocator/templates/infowindow-description.html',
-					listTemplatePath: vsource.apiUrl + '/js/plugins/storeLocator/templates/location-list-description.html',
+					listTemplatePath: vsource.apiUrl + '/view.php/offices_location_description_template',
 					KMLinfowindowTemplatePath: vsource.apiUrl + '/js/plugins/storeLocator/templates/kml-infowindow-description.html',
 					KMLlistTemplatePath: vsource.apiUrl + '/js/plugins/storeLocator/templates/kml-location-list-description.html',
-					dataLocation: vsource.apiUrl + '/data/locations.json'
+					dataLocation: vsource.apiUrl + '/locations.php'
 					
 				});
 				I.isLocatorInitialized = true;

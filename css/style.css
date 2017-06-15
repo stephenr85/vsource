@@ -392,20 +392,21 @@ button.greenbg, a.greenbg {
 	border-radius: 30px !important;
 	background-color: #199c69;
 	color: #fff !important;
-	width: 150px !important;
+	/*width: 150px !important;*/
 }
 
 button.bluebg, a.bluebg {
 	border: none !important;
 	border-radius: 30px !important;
-	width: 150px !important;
+	/*width: 150px !important;*/
 	background-color: #0062a9;
 	color: #fff !important;
 }
 
 .ui-btn-inline {
 	border-radius: 30px !important;
-		width: 150px !important;
+	/*width: 150px !important;*/
+	width: auto !important;
 }
 
 
@@ -446,7 +447,7 @@ button.bluebg, a.bluebg {
 	box-shadow: 2px -6px 6px 0px rgba(0,0,0,0.17);
 }
 
-a.graybg  {
+a.graybg {
 	background-color: #55555a;
 	color: #fff !important;
 	width: 150px;
@@ -454,10 +455,9 @@ a.graybg  {
 	border-radius: 30px;
 	font-size: 1.2em;
 	font-family: 'Roboto', sans-serif !important;
-	
 }
 
-#more a.btn-lg.graybg {width: 175px;}
+#more a.btn-lg.graybg {width: 100%; max-width: 245px;}
 
 #my-signin2 {
 	color: #646464 !important;
@@ -1016,7 +1016,8 @@ a i.fa-bars {
 
 #leftnav li {
 	list-style-type: none;
-	line-height: 2.75em;
+	line-height: 1.75em;
+	margin: 1em 0;
 }
 
 #leftnav li i {

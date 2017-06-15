@@ -43,3 +43,8 @@ function vsource_strip_array($arr){
 function vsource_safe_array($arr){
 	return vsource_strip_array($arr);
 }
+
+
+function t($id, $parameters = array(), $domain = NULL, $locale = NULL){
+	return vsource()->getTranslator()->trans($id, $parameters, $domain, $locale);
+}
