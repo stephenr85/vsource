@@ -63,6 +63,31 @@ a {
 	padding-bottom: 20px;
 }
 
+
+.ui-popup-container {
+	background: #fff;
+}
+
+.ui-popup-container img {
+	max-width: 100%;
+}
+
+.ui-popup-screen {
+	background: #000;
+}
+
+a[data-iconpos="notext"]{
+	text-indent: -999em;
+}
+a[data-icon="delete"]{
+	background: #000 url(../images/close-icon.png) no-repeat center center;
+	height: 36px;
+	width: 36px;
+	border-radius: 20px;
+	box-shadow: 0 0 6px rgba(0,0,0,.5);
+	border: 2px solid #ccc;
+}
+
 /*SPINNER*/
 
 .signupspin {
@@ -1194,6 +1219,30 @@ h3.ui-collapsible-heading {
 	border: none;
 	padding: 20px 30px;
 }
+
+
+
+/* News Article */
+
+
+.ui-popup .article-title {
+	font-size: 26px;
+	line-height: 1.3em;
+}
+.ui-popup .article-intro {
+	margin-bottom: 1em;
+	line-height: 1.6em;
+}
+
+.fr-draggable.fr-fil.fr-dii {
+  display: block;
+  margin-bottom: 1em;
+  width: 100% !important;
+  height: auto !important;
+}
+
+
+
 
 /* Large desktops and laptops */
 @media (min-width: 1200px) {

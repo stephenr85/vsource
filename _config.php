@@ -17,5 +17,5 @@ define('VSOURCE_LUMSITES_AUTH_REFRESH', '1/N8q7bq3aINVYG9i_wP68GU7HBsdw_R79hDykA
 if($_SERVER['HTTP_HOST'] == 'vsource.local'){
 	define('VSOURCE_VIEW_ROOT', '/');
 }else{
-	define('VSOURCE_VIEW_ROOT', 'http://vesnaus.com/vsource/v1.6.1/');
+	define('VSOURCE_VIEW_ROOT', 'http://vesnaus.com/vsource/v1.6/');
 }

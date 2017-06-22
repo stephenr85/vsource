@@ -28,6 +28,10 @@ class App {
 		return VSOURCE_DIR;
 	}
 
+	public function getRootUrl(){
+		return VSOURCE_VIEW_ROOT;
+	}
+
 	private $_db = null;
 	public function db(){
 		if(!$this->_db){
@@ -96,6 +100,7 @@ class App {
 		$translator = new Translator($locale, new MessageSelector());
 
 		$translator->addLoader('php', new PhpFileLoader());
+		$translator->addResource('php', './lang/en_US.php', 'en_US');
 		$translator->addResource('php', './lang/fr_CA.php', 'fr_CA');
 
 		return $translator;
@@ -137,7 +142,7 @@ class App {
 
 			$body = $res->getBody();
 
-			$this->cache->set($cacheKey, $body);
+			$this->cache->set($cacheKey, (string)$body);
 
 			return $body;
 

@@ -22,6 +22,9 @@ class Adapter {
 	public $isCaching = TRUE;
 	public $cacheSeconds = 60;
 
+	public $customerId = '5649391675244544';
+	public $instanceId = '5183329204699136';
+
 	
 	public function __construct(){
 		$this->client = new Google_Client();
@@ -94,8 +97,6 @@ class Adapter {
 		//$this->getApp()->cache->clear();
 		//Setup params
 		$defaults = array(
-			'customerId'=>"5649391675244544",
-			'instanceId'=>"5183329204699136",
 			'lang'=>$this->getApp()->getLanguage()
 		);
 		$params = array_merge($defaults, $params);
@@ -116,18 +117,22 @@ class Adapter {
 		}
 
 		//Get data
-		$response = $this->httpClient->request('POST', $endpointUrl, 
-			array(
-				'debug'=>$this->isDebug,
-				'json'=> $params
-			)
+		$config = array(
+			'debug'=>$this->isDebug,
+			'json'=> $params,
+			'query' => $method === 'GET' ? $params : null
 		);
+		if($method === 'GET'){
+			$config['query'] = $params;
+		}else{
+			$config['json'] = $params;
+		}
+		$response = $this->httpClient->request($method, $endpointUrl, $config);
 
 		if($this->isCaching){
 		//	$response->getBody();
 		//	$this->getApp()->cache->set($cacheKey, $response, $this->cacheSeconds);
 		}
-		
 
 		return $response;
 	}

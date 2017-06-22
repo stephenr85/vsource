@@ -12,17 +12,18 @@ class Cache {
 	private $cacheSeconds = 60;
 
 	public function __construct(){
-		$this->simple = new FilesystemCache('vsource');
-		$this->adapter = new FilesystemAdapter('vsource');
+		$this->simple = new FilesystemCache('vsource', $this->cacheSeconds);
+		$this->adapter = new FilesystemAdapter('vsource', $this->cacheSeconds);
 	}
 
 	public function clear(){
 		$this->adapter->clear();
+		$this->simple->clear();
 		return $this;
 	}
 
 	public function has($key){
-		return $this->adapter->hasItem($key);
+		return $this->adapter->hasItem($key) && $this->adapter->getItem($key)->isHit();
 	}
 
 	public function getKey($parts){
@@ -50,7 +51,8 @@ class Cache {
 	}
 
 	public function get($key){
-		return $this->getItem($key)->get();
+		$item = $this->getItem($key);
+		return $item->isHit() ? $item->get() : NULL;
 	}
 
 	public function set($key, $data = NULL, $seconds = NULL){
