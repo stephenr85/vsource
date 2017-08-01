@@ -8,8 +8,8 @@ return array(
 	 * about
 	 */
 	'Provide Feedback' => 'Donnez Votre Avis',
-	'Submit' => 'Submit',
-	'Thank You!' => 'Merce !',
+	'Submit' => 'Soumettre',
+	'Thank You!' => 'Merci!',
 	'Close' => 'Fermer',
 
 	/*
@@ -20,7 +20,6 @@ return array(
 	'Ask us and we’ll do our best to answer. Questions are not anonymous.' => 'N’hésitez pas à nous soumettre vos questions et nous ferons de notre mieux pour y répondre. Les questions ne sont pas anonymes.',
 	'ASK QUESTION' => 'POSER UNE QUESTION',
 	'I have a question about Veolia (submitted via VSOURCE)' => 'J’ai une question concernant Veolia (soumise via VSOURCE)',
-
 
 	/*
 	 * ideas 
@@ -40,6 +39,14 @@ return array(
 	'Close' => 'Fermer',
 
 	/*
+	 * forgot password 
+	 */
+	'Forgot Password' => 'Mot de passe oublié',
+	'Enter your email address.' => 'Entrez votre adresse courriel.',
+	'Email Address' => 'Adresse courriel',
+	'Next' => 'Suivant',
+
+	/*
 	 * join 
 	 */
 	'join_content' => 'Participez à l’effort de croissance de Veolia.',
@@ -56,16 +63,15 @@ return array(
 	'join_suggest_group_email_title' => 'J’ai une idée de groupe Veolia.',
 	'join_suggest_group_email_body' => 'Je souhaiterais proposer un groupe Veolia. Voici ma proposition – pourriez-vous m’expliquer comment  cela fonctionne?',
 
-
 	/*
 	 * login 
 	 */
-	'login_intro' => 'Your North American<br>Information Tool FR',
-	'Your Email' => 'Your Email',
-	'Password' => 'Password',
-	'Sign In' => 'Sign In FR',
-	'Create an account' => 'Create an account',
-	'Forgot your password?' => 'Forgot your password?',
+	'login_intro' => 'Votre Outil d\'information nord-américain',
+	'Your Email' => 'Votre courriel',
+	'Password' => 'Mot de passe',
+	'Sign In' => 'S\'identifier',
+	'Create an account' => 'Créer un compte',
+	'Forgot your password?' => 'Vous avez oublié votre mot de passe ?',
 
 	/*
 	 * more 
@@ -82,6 +88,35 @@ return array(
 	'GET DETAILS' => 'PLUS D’INFORMATIONS',
 	'more_details_email_title' => 'Je souhaiterais recommander un employé à Veolia.',
 	'more_details_email_body' => 'Je connais une personne qui ferait un excellent employé Veolia. J’aimerais en savoir plus sur notre programme de recommandations.',
+	'more_twitter_url' => 'https://twitter.com/veolia',
+	'more_linkedin_url' => 'https://www.linkedin.com/company-beta/166785/',
+	//'more_instagram_url' => 'https://www.instagram.com/veolianorthamerica/',
+	'more_veolia_url' => 'https://www.planet.veolia.com/fr',
+
+	'more_waste_url' => 'http://www.veolianorthamerica.com/fr/gestion-de-l-environnement-et-de-la-recuperation-des-ressources',
+	'more_water_url' => 'http://www.veolianorthamerica.com/fr/water-wastewater-and-resource-recovery',
+	'more_energy_url' => 'http://www.veolianorthamerica.com/fr/energy-efficient-solutions',
+	'more_cleaning_url' => 'http://www.veolianorthamerica.com/fr/gestion-de-l-environnement-et-de-la-recuperation-des-ressources',
+	'more_regeneration_url' => 'http://www.veolianorthamerica.com/fr/les-services-de-regeneration-de-veolia',
+
+	/*
+	 * news
+	 */
+	'news_twitter_url' => 'https://twitter.com/veolia',
+
+	/*
+	 * password_change 
+	 */
+	'Change Passcode' => 'Modifier le mot de passe',
+	'Please enter your new password.' => 'Veuillez saisir votre nouveau de passe',
+	'Enter New Password' => 'Saisir le nouveau mot de passe',
+	'Next' => 'Suivant',
+
+	'Enter Temporary Passcode' => 'Saisir le mot de passe provisoire',
+	'A temporary passcode was sent to your email. Please enter it below.' => 'Un mot de passe provisoire a été envoyé à votre adresse courriel. Veuillez saisir ce mot de passe ci-dessous.',
+	'Enter Code' => 'Saisir le mot de passe',
+	'Next' => 'Suivant',
+
 
 	/*
 	 * offices 
@@ -101,7 +136,6 @@ return array(
 	'Data Center' => 'Centre de données',
 	'M&C Business Development' => 'Développement des affaires pour l’Activité Municipale et Commerciale',
 
-
 	/*
 	 * panels/leftnav 
 	 */
@@ -116,12 +150,29 @@ return array(
 	'Join' => 'Nous rejoindre',
 	'About' => 'À propos',
 	'Logout' => 'Déconnexion',
-	
+
+	/*
+	 * register
+	 */
+	'Create An Account' => 'Créer un compte',
+	'First Name' => 'Prénom',
+	'Last Name' => 'Nom de famille',
+	'Email' => 'Courriel',
+	'Password' => 'Mot de passe',
+	'Confirm Password' => 'Confirmer le mot de passe',
+	'Sign Up' => 'S\'inscrire',
+
+	'Confirmation' => 'Confirmation',
+	'A validation code has been sent to your email.' => 'Un code de validation a été envoyé à votre adresse courriel.',
+	'Enter Code' => 'Saisir le code',
+	'Validate' => 'Valider',
 
 
 	/*
 	 * videos 
 	 */
-	//'About Us' => '',
-	//'Services' => ''
+	'About Us' => 'À Propos',
+	'Services' => 'Services',
+	'youtube_about_playlist' => 'PL9opkHFYSV4I2ZXENU9CqdJBSmSwfLzCG',
+	'youtube_services_playlist' => 'PL9opkHFYSV4Iw-HiVPXlJ6zfIkUFG12Gs'
 );

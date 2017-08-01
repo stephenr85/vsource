@@ -178,10 +178,14 @@
 
 	    var $activePage = $(':mobile-pagecontainer').pagecontainer('getActivePage');
 
+	    $.mobile.loading('show');
+	    $('#splash').remove();
 	    //Replace splash with server version
+	    $activePage.remove();
 	    $.get(vsource.apiUrl + '/view.php/splash').then(function(html){
-			//$('#splash').replaceWith(html);
-			//vsource.pages['splash'].onLoad();
+			$(':mobile-pagecontainer').append(html);
+			vsource.pages['splash'].onLoad();
+			$.mobile.loading('hide');
 		});
 
 	    //Send user to splash/login by default
@@ -306,6 +310,7 @@
 
 		if(pageObj){
 			gaU('send', 'pageview', window.location.protocol === 'file:' ? location.hash : window.location);
+			pageObj.$el = $(evt.target);
 			if(pageObj.onShow) pageObj.onShow();
 		}
 	});
@@ -532,7 +537,8 @@
 				$('.loading').show();
 				return vsource.whenYouTube.done(function(){
 					var request = gapi.client.youtube.playlistItems.list({
-						playlistId: 'PLH-nnUXtAYzpIJxKuLmldQ8EW0Kyu6dSL',
+						playlistId: I.$el.find("#video-table").attr('data-playlist'),
+						//playlistId: 'PLH-nnUXtAYzpIJxKuLmldQ8EW0Kyu6dSL',
 						maxResults: 25,
 					    relevanceLanguage: 'en',
 					    type: 'video',
@@ -550,9 +556,13 @@
 			            $("#pageTokenPrev").val(data.prevPageToken);
 
 			            $.each(items, function(index,e) {
+			            	if(!e.snippet.thumbnails) {
+			            		console.log('no thumbnails', e);
+			            		return;
+			            	}
 			                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
 			            });
-			            $("#video-table").html(videoList);
+			            I.$el.find("#video-table").html(videoList);
 			            I.aboutVideosLoaded = true;
 					});
 
@@ -566,6 +576,7 @@
 	vsource.pages['videos_services'] = $.extend({}, vsource.pages['videos'], {
 		url: '/view.php/videos_services',
 
+		/*
 		loadVideos: function(){
 			var I = this;
 
@@ -574,7 +585,8 @@
 				return vsource.whenYouTube.done(function(){
 
 					var request = gapi.client.youtube.playlistItems.list({
-					    playlistId: 'PLH-nnUXtAYzp7UDj29arg6RlyLDuJ-cEa',
+					    playlistId: I.$el.find("#video-table").attr('data-playlist'),
+					    //playlistId: 'PLH-nnUXtAYzp7UDj29arg6RlyLDuJ-cEa',
 					    maxResults: 25,
 					    relevanceLanguage: 'en',
 					    type: 'video',
@@ -594,13 +606,13 @@
 			            $.each(items, function(index,e) {
 			                videoList = videoList + '<tr style="border-bottom:2px solid #fff;"><td style="padding-bottom: 2px;"><div class=""><a href="https://www.youtube.com/watch?v='+e.snippet.resourceId.videoId+'" class="" data-lity><div class="play"> </div><span class=""><img width="140px" alt="'+e.snippet.title +'" src="'+e.snippet.thumbnails.default.url+'" ></span></a></div></td><td style="padding-left:10px; padding-top: 5px;" vAlign="top"><span class="title">'+e.snippet.title+'</span><br>'+'</td></tr><tr class="spacer"></tr>';
 			            });
-			            $("#video-table").html(videoList);
+			            I.$el.find("#video-table").html(videoList);
 			            I.serviceVideosLoaded = true;
 					});
 
 				});
 			}
-		}
+		}*/
 	});
 
 	vsource.pages['ideas'] = {
@@ -694,10 +706,9 @@
 
 
 
-
 	// User sign in	
 	$(document).on('submit','#signinform', function(e){
-		
+		console.log(arguments);
 		e.preventDefault();
 		var formdata = $('#signinform').serialize();
 
@@ -869,15 +880,15 @@
 	$(document).on('click', '.close', function(){
 		$('.loading').hide();
 		$('#feedbackform').get(0).reset();
-	});	
+	});
 				
 
 	//Feedback confirmation buttons	
 	$(document).on('click', '#learnbutton', function(){
 
 		$('.loading').hide();
-		$.mobile.changePage( "#join");
 		$('#shareidea').get(0).reset();
+		$.mobile.changePage( "#join");		
 
 	});	
 		

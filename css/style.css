@@ -913,13 +913,23 @@ margin-bottom: 5px;
 	display: inline;
 }
 
-.newsfeed-itemimage img {
-	width: 140px;
-	height: 110px;
-	
+.newsfeed-itemimage {
+	width: 120px;
+	height: 120px;
+	background-size: cover;
 	float: left;
 	margin-right: 10px;
 	overflow: hidden !important;
+}
+.newsfeed-itemimage a {
+	float: left;
+	height: 100%;
+	width: 100%;
+}
+.newsfeed-itemimage img {
+	float: left;
+	height: auto;
+	width: 100%;	
 }
 
 

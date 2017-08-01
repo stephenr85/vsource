@@ -2,6 +2,8 @@
 
 namespace Vsource;
 
+use \Wa72\HtmlPageDom\HtmlPageCrawler;
+
 class View {
 
 	public function getApp(){
@@ -35,6 +37,8 @@ class View {
 		
 		$content = preg_replace_callback($hrefRegex, $replaceUrl, $content);
 		$content = preg_replace_callback($srcRegex, $replaceUrl, $content);
+
+		$content = str_replace(':url(/', ':url('.VSOURCE_VIEW_ROOT, $content);
 
 		return $content;
 	}

@@ -118,9 +118,7 @@ class Adapter {
 
 		//Get data
 		$config = array(
-			'debug'=>$this->isDebug,
-			'json'=> $params,
-			'query' => $method === 'GET' ? $params : null
+			'debug'=>$this->isDebug
 		);
 		if($method === 'GET'){
 			$config['query'] = $params;
@@ -137,9 +135,6 @@ class Adapter {
 		return $response;
 	}
 
-	public function requestBody($method, $endpoing, $params){
-
-	}
 
 	public function cache($isCaching = TRUE, $seconds = NULL){
 		$this->isCaching = $isCaching;
@@ -156,6 +151,48 @@ class Adapter {
 		return $this;
 	}
 
+
+	public function getCustomContentType($name, $params = array()){
+		$adapter = $this->getApp()->getLumSitesAdapter();
+		$defaults = array(
+			//'customerId'=>$adapter->customerId,
+			'instance'=>$adapter->instanceId,
+			//'lang'=>$this->getApp()->getLanguage(),
+			//'maxResults'=>20,
+			//'more'=>true,
+			//'sortOrder'=>"-publicationDate",
+			//'type'=>"news",
+		);
+		$params = array_merge($defaults, $params);
+		$response = $this->request('GET', 'customcontenttype/list', $params);
+		$json = json_decode($response->getBody(), TRUE);
+		
+		foreach($json['items'] as $ct){
+			if(array_search($name, $ct['name']) !== FALSE){
+				return $ct;
+			}
+		}
+
+		return NULL;
+	}
+
+
+	public function getCustomContentTypeTagIDs($ctName, $tagNames){
+		if(is_string($tagNames)) $tagNames = array($tagNames);
+
+		$tagIDs = array();
+
+		$ct = $this->getCustomContentType($ctName);
+		foreach($ct['tags'] as $tagObj){
+			foreach($tagNames as $tagName){
+				if(array_search($tagName, $tagObj['name']) !== FALSE){
+					$tagIDs[] = $tagObj['uuid'];
+				}
+			}
+		}
+
+		return $tagIDs;
+	}
 
 
 }

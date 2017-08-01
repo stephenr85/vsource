@@ -25,7 +25,7 @@
 		<div class="col-xs-12">
 		
 			<div>
-		        <table id="video-table" class="hyv-video-list" data-filter="true" data-input="#videosearch">
+		        <table id="video-table" class="hyv-video-list" data-filter="true" data-input="#videosearch" data-playlist="<?php echo t('youtube_about_playlist') ?>">
 		        </table>
 		    </div>
 	   

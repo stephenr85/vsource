@@ -70,6 +70,10 @@ class NewsFeed {
 	public function loadLumSitesNews($params = array()){
 		$adapter = $this->getApp()->getLumSitesAdapter();
 		$adapter->debug($this->isDebug);
+		//$adapter->debug(true);
+
+		
+
 		$defaults = array(
 			'action'=>"NEWS_READ",
 			'customerId'=>$adapter->customerId,
@@ -81,7 +85,7 @@ class NewsFeed {
 			'type'=>"news",
 		);
 		$params = array_merge($defaults, $params);
-		//$adapter->debug(true);
+
 		$response = $adapter->request('POST', 'content/list', $params);
 		if($adapter->isDebug) print_r((string)$response->getBody());
 		$json = json_decode($response->getBody(), TRUE);
@@ -99,7 +103,7 @@ class NewsFeed {
 				'exturl'=> 'https://oneintranet.veolia.com/nam-mgt-northamericaintranet/' . $slug,
 				'url'=>$this->getApp()->getRootUrl().'view.php/news_item?slug='.$slug,
 				'title' => $flatItem['title.' . $lang] ? $flatItem['title.'.$lang] : $flatItem['title.en'],
-				'description' => $flatItem['template.components.0.cells.0.components.1.properties.content.'. $lang] ? $flatItem['template.components.0.cells.0.components.1.properties.content.'. $lang] : $flatItem['template.components.0.cells.0.components.1.properties.content.en'],
+				'description' => isset($flatItem['template.components.0.cells.0.components.1.properties.content.'. $lang]) ? $flatItem['template.components.0.cells.0.components.1.properties.content.'. $lang] : $flatItem['template.components.0.cells.0.components.1.properties.content.en'],
 				'date' => strtotime($flatItem['publicationDate']),
 				'image' => $flatItem['thumbnail']
 			);
@@ -140,9 +144,20 @@ class NewsFeed {
 	}
 
 	public function load(){
-		$this->loadRss('http://www.veolianorthamerica.com/en/rss-site-updates', 'VNA Newsroom', 'http://www.veolianorthamerica.com/en/media/newsroom');
-        $this->loadRss('http://planet.veolianorthamerica.com/feed/', 'Planet North America', 'http://planet.veolianorthamerica.com/');
-        $this->loadLumSitesNews();
+		if($this->getApp()->getLanguage() == 'fr'){
+			$this->loadRss('http://www.veolianorthamerica.com/fr/rss-articles', 'Communiqués de presse', 'http://www.veolianorthamerica.com/fr/communiques-de-presse');
+
+			$this->loadLumSitesNews(array(
+				'customContentTypeTags' => $this->getApp()->getLumSitesAdapter()->getCustomContentTypeTagIDs('News', 'FR')
+			));
+		}else{
+			$this->loadRss('http://www.veolianorthamerica.com/en/rss-site-updates', 'VNA Newsroom', 'http://www.veolianorthamerica.com/en/media/newsroom');
+        	$this->loadRss('http://planet.veolianorthamerica.com/feed/', 'Planet North America', 'http://planet.veolianorthamerica.com/');
+
+        	$this->loadLumSitesNews();
+		}
+		
+        
         $this->sortFeedItems();
 
         //print_r($this->feedItems);

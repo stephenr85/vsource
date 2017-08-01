@@ -20,11 +20,11 @@
 
 
 	<p class="text-center"><strong><?php echo t('Information') ?></strong></p>
-	<div class="col-xs-3"><a href="#" onclick="window.open('https://twitter.com/Veolia_NA', '_blank');"><i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a></div>
-	<div class="col-xs-3"><a href="#" onclick="window.open('https://www.linkedin.com/company/veolianorthamerica', '_blank');"><i class="fa fa-linkedin fa-3x" aria-hidden="true"></i></a>
+	<div class="col-xs-4 text-center"><a href="#" onclick="window.open('<?php echo t('more_twitter_url') ?>', '_blank');"><i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a></div>
+	<div class="col-xs-4 text-center"><a href="#" onclick="window.open('<?php echo t('more_linkedin_url') ?>', '_blank');"><i class="fa fa-linkedin fa-3x" aria-hidden="true"></i></a>
 </div>
-	<div class="col-xs-3"><a href="#" onclick="window.open('https://www.instagram.com/veolianorthamerica/', '_blank');"><i class="fa fa-instagram fa-3x" aria-hidden="true"></i></a></div>
-	<div class="col-xs-3"><a href="#" onclick="window.open('http://planet.veolianorthamerica.com/', '_blank');"><img src="images/veoliagraylogo.png" alt="veoliagraylogo" width="38" height="38" style="margin-top: 5px;" /></a></div>
+
+	<div class="col-xs-4 text-center"><a href="#" onclick="window.open('<?php echo t('more_veolia_url') ?>', '_blank');"><img src="images/veoliagraylogo.png" alt="veoliagraylogo" width="38" height="38" style="margin-top: 5px;" /></a></div>
 	</div>
 	</div>
 	<div class="row">
@@ -32,11 +32,11 @@
 	<br>
 	<strong><?php echo t('Services') ?></strong>
 	<br>
-	<a href="#" onclick="window.open('http://www.veolianorthamerica.com/en/our-services/waste-services', '_blank');"  class="btn graybg btn-lg"><?php echo t('WASTE') ?></a> <br>
-	<a href="#" onclick="window.open('http://www.veolianorthamerica.com/en/our-services/water-services', '_blank');" class="btn graybg btn-lg"><?php echo t('WATER') ?></a><br>
-	<a href="#" onclick="window.open('http://www.veolianorthamerica.com/en/our-services/energy-services', '_blank');" class="btn graybg btn-lg"><?php echo t('ENERGY') ?></a><br>
-	<a href="#" onclick="window.open('http://www.veolianorthamerica.com/en/our-services/cleaning-services', '_blank');" class="btn graybg btn-lg"><?php echo t('CLEANING') ?></a><br>
-	<a href="#" onclick="window.open('http://www.veolianorthamerica.com/en/our-services/regeneration-services', '_blank');" class="btn graybg btn-lg"><?php echo t('REGENERATION') ?></a><br>
+	<a href="#" onclick="window.open('<?php echo t('more_waste_url') ?>', '_blank');"  class="btn graybg btn-lg"><?php echo t('WASTE') ?></a> <br>
+	<a href="#" onclick="window.open('<?php echo t('more_water_url') ?>', '_blank');" class="btn graybg btn-lg"><?php echo t('WATER') ?></a><br>
+	<a href="#" onclick="window.open('<?php echo t('more_energy_url') ?>', '_blank');" class="btn graybg btn-lg"><?php echo t('ENERGY') ?></a><br>
+	<a href="#" onclick="window.open('<?php echo t('more_cleaning_url') ?>', '_blank');" class="btn graybg btn-lg"><?php echo t('CLEANING') ?></a><br>
+	<a href="#" onclick="window.open('<?php echo t('more_regeneration_url') ?>', '_blank');" class="btn graybg btn-lg"><?php echo t('REGENERATION') ?></a><br>
 	</div>
 	
 	</div>
@@ -62,12 +62,13 @@
 	<br>
 	<u>Dans le monde</u><br>
 
-	174 000+ employés <br>
-	Eau potable à 96M de personnes<br>
-	Service d’eaux usées à 60M de personnes<br>
-	52M mégawatt heures d’énergie<br>
-	31M  de tonnes de matières résiduelles transformées<br>
+	163 000+ employés<br>
+	Eau potable à 100M de personnes<br>
+	Service d’eaux usées à 61M de personnes<br>
+	54M mégawatt heures d’énergie<br>
+	30M de tonnes de matières résiduelles transformées<br>
 	Chiffre d'affaires consolidé, 25,7 milliards de dollars
+
 
 
 	</strong>

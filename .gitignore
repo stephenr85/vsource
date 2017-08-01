@@ -5,3 +5,4 @@ _ignore
 vendor
 cordova
 composer.lock
+private/backups

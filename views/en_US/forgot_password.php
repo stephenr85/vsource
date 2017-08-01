@@ -5,7 +5,7 @@
 
 	<div data-role="header" class="headerbg">
 		<a href="#makeaccount" data-transition="slide" data-rel="back"><i class="fa fa-chevron-left fa-2x white"></i></a>
-			<h1><?php echo t('Forgot your Password') ?></h1>
+			<h1><?php echo t('Forgot Password') ?></h1>
 	</div><!-- /header -->
 		
 	
@@ -19,7 +19,7 @@
 		
 		</p>
 		<div class="main-login-form">
-			<input type="email" id="forgotemail" name="email" class="form-control whitebigtext" placeholder="Email Address"></input>
+			<input type="email" id="forgotemail" name="email" class="form-control whitebigtext" placeholder="<?php echo t('Email Address') ?>"></input>
 			</div>
 			<input type="hidden" name="passwordreset" value="1"/>
 			<div class="buttoncontainer">

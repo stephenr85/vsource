@@ -20,13 +20,13 @@
 				</div>
 			</div>	
 				<input type="hidden" name="signin" value="1">
-	</div>
+	
 			
 		<div class="buttoncontainer">	
 		<button type="submit" class="home-login-button" id="signinbutton"><?php echo t('Sign In') ?></button>
 		</div>
 		</form>
- 	
+ 	</div>
 		<div class="text-center">
 			<div class="etc-login-form">
 				<p class="text-center whitetext"> <a href="#register" data-transition="slide"><?php echo t('Create an account') ?></a> &nbsp;&nbsp;

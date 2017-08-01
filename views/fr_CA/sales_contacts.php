@@ -64,7 +64,7 @@ Colin pilote le développement des affaires sur la côte ouest pour les services
 <div data-role="collapsible"><h3>Région Centre</h3>
 <p><strong>Suresh Jambunathan</strong><br>
   <a href="mailto:Suresh.jambunathan@veolia.com">suresh.jambunathan@veolia.com</a><br>
-  <a href="tel:630.388.0730">630.388.0730</a><br>
+  <a href="tel:630.335.4544">630.335.4544</a><br>
 Suresh gère le développement des affaires pour les contrats municipaux eau et énergie dans la région centre, y compris le centre du Canada et le Québec.</p>
 <p><strong>Matt Duffy</strong><br>
   <a href="mailto:matthew.duffy@veolia.com">matthew.duffy@veolia.com</a><br>
@@ -277,7 +277,7 @@ Kevin dirige les ventes nationales pour le groupe Nettoyage industriel. Les cont
 <a href="tel:630.218.1763">630.218.1763</a></p>
 </div>
     <div data-role="collapsible">
-<h3>IND Cleaning and IND Water and Regeneration Services</h3>
+<h3>IND Nettoyage et IND Eau et Régénération</h3>
 <p><strong>Harrison Lee</strong><br>
   <a href="mailto:harrison.lee@veolia.com">harrison.lee@veolia.com</a><br>
 </p>

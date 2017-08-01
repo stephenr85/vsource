@@ -20,7 +20,7 @@
         	<div class="col-xs-12">
          
             
-            <a class="twitter-timeline" href="https://twitter.com/Veolia_NA">Tweets by Veolia_NA</a> <script src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a class="twitter-timeline" href="<?php echo t('news_twitter_url') ?>">Tweets by Veolia</a> <script src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
               

@@ -182,4 +182,5 @@ class App {
 		}
 		return $this->_lumSitesAdapter;
 	}
+
 }

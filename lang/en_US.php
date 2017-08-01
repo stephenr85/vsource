@@ -27,4 +27,25 @@ return array(
 	 */
 	'more_details_email_title' => 'I\'m interested in referring an employee to Veolia.',
 	'more_details_email_body' => 'I know someone who would make a great Veolia employee. Could you tell me more about our referral program?',
+	'more_twitter_url' => 'https://twitter.com/Veolia_NA',
+	'more_linkedin_url' => 'https://www.linkedin.com/company/veolianorthamerica',
+	'more_instagram_url' => 'https://www.instagram.com/veolianorthamerica/',
+	'more_veolia_url' => 'http://planet.veolianorthamerica.com/',
+
+	'more_waste_url' => '',
+	'more_water_url' => '',
+	'more_energy_url' => '',
+	'more_cleaning_url' => '',
+	'more_regeneration_url' => '',
+
+	/*
+	 * news 
+	 */
+	'news_twitter_url' => 'https://twitter.com/Veolia_NA',
+
+	/*
+	 * videos 
+	 */
+	'youtube_about_playlist' => 'PLH-nnUXtAYzpIJxKuLmldQ8EW0Kyu6dSL',
+	'youtube_services_playlist' => 'PLH-nnUXtAYzp7UDj29arg6RlyLDuJ-cEa'
 );

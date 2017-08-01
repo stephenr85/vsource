@@ -2,27 +2,44 @@
 
 
 <div id="sales_contacts" data-role="page">
-	<div data-role="header" data-position="fixed" class="headerbg">
-	
-	<a href="#leftnav"><i class="fa fa-bars" aria-hidden="true"></i></a>
-		<h1><?php echo t('Sales Contacts') ?></h1>
-	<a href="#home"><img src="images/logo.png" alt="logo" width="" height="" /></a>
+  <div data-role="header" data-position="fixed" class="headerbg">
+  
+  <a href="#leftnav"><i class="fa fa-bars" aria-hidden="true"></i></a>
+    <h1><?php echo t('Sales Contacts') ?></h1>
+  <a href="#home"><img src="images/logo.png" alt="logo" width="" height="" /></a>
 </div><!-- /header -->
 
-	<div role="main" class="ui-content">
-		<div class="row">
-	
-	<div class="col-xs-12">
-	
-		<p>Looking for Sales Contacts?<br>
+  <div role="main" class="ui-content">
+    <div class="row">
+  
+  <div class="col-xs-12">
+  
+    <p>Looking for Sales Contacts?<br>
 You can find them here.</p>
-		
-  <?php echo htmlspecialchars(t('xyz')) ?>
-		<!-- ... -->
+    
 
-		<div data-role="collapsibleset" data-inset="false">
+  <?php 
+    /*$feed = new \Vsource\SalesContactsFeed();
+    $feedItems = $feed->loadOriginalData();
+    print_r($feedItems['template']['components']);die;
+
+    foreach($feedItems['template']['components'] as $components){
+      foreach($components as $component){
+        if($component['widgetType'] == 'about'){
+          echo '<h2>'.$component['properties']['title']['en'].'</h2>';
+          echo '<p>'.$component['properties']['content']['en'].'</p>';
+        }else if($component['widgetType'] == 'html'){
+          echo '<div>'..'</div>';
+        }
+      }
+    }*/
+  ?>
+
+    <!-- ... -->
+
+    <div data-role="collapsibleset" data-inset="false">
     <div data-role="collapsible">
-<h2 class="redbutton"><?php echo htmlspecialchars(t('M&C - National')) ?></h2>
+<h2 class="redbutton">M&amp;C- National</h2>
 
 <p>  The M&amp;C business works in more than 550 communities in North America, managing large and complex water and energy infrastructure.  We increase efficiency and protect valuable resources, allowing our customers to focus on their core business.</p>
 <p> <strong>Mark Sanderson</strong><br>
@@ -48,7 +65,7 @@ Patrick leads business development for the Peer Performance Solutions consulting
 </div>
 
 <div data-role="collapsible">
-<h2 class="greenbutton"><?php echo htmlspecialchars(t('xyz')) ?>M&amp;C Regional BD Leads</h2>
+<h2 class="greenbutton">M&amp;C Regional BD Leads</h2>
 <div data-role="collapsibleset" data-inset="false">
     <div data-role="collapsible"><h3>West Region</h3>
 <p><strong>David Schneider</strong><br>
@@ -62,10 +79,10 @@ Colin leads business development on the west coast for energy consulting service
 
 </div>
 
-<div data-role="collapsible"><h3><?php echo htmlspecialchars(t('xyz')) ?>Central Region</h3>
+<div data-role="collapsible"><h3>Central Region</h3>
 <p><strong>Suresh Jambunathan</strong><br>
   <a href="mailto:Suresh.jambunathan@veolia.com">suresh.jambunathan@veolia.com</a><br>
-  <a href="tel:630.388.0730">630.388.0730</a><br>
+  <a href="tel:630.335.4544">630.335.4544</a><br>
 Suresh leads business development efforts for municipal water and energy contracts in the Central Region, which includes Central Canada and Quebec.</p>
 <p><strong>Matt Duffy</strong><br>
   <a href="mailto:matthew.duffy@veolia.com">matthew.duffy@veolia.com</a><br>
@@ -77,14 +94,14 @@ Matt supports the Central region BD team. Matt is based in Houston and focuses o
   Pat supports business development efforts in the M&amp;C Central region</p>
 </div>
 
-<div data-role="collapsible"><h3><?php echo htmlspecialchars(t('xyz')) ?>South Region</h3>
+<div data-role="collapsible"><h3>South Region</h3>
 <p><strong>Jeff Brown</strong><br>
   <a href="mailto:jeffrey.brown@veolia.com">jeffrey.brown@veolia.com</a><br>
   <a href="tel:443.280.1900">443.280.1900</a><br>
 Jeff leads business development in the South region, particularly focusing on off-pipe energy O&amp;M.</p>
 </div>
 
-<div data-role="collapsible"><h3><?php echo htmlspecialchars(t('xyz')) ?>Northeast/Mid-Atlantic Region</h3>
+<div data-role="collapsible"><h3>Northeast/Mid-Atlantic Region</h3>
 <p><strong>Tom McCarthy</strong><br>
   <a href="mailto:Thomas.mccarthy@veolia.com">thomas.mccarthy@veolia.com </a><br>
   <a href="tel:603.715.7797">603.715.7797</a><br>
@@ -112,7 +129,7 @@ Paul supports business development efforts focused on energy operations in the N
 Rob leads all national sales efforts for the ESS group and Industrial Canada. The contacts below manage regional sales and report up to Rob.</p>
 
 <div data-role="collapsibleset" data-inset="false">
-	<div data-role="collapsible">
+  <div data-role="collapsible">
 <h3>Canada East (Quebec)</h3>
 <p><strong>Vincent Le Corre</strong><br>
   <a href="mailto:Vincent.lecorre@veolia.com">vincent.lecorre@veolia.com </a><br>
@@ -162,9 +179,9 @@ Rob leads all national sales efforts for the ESS group and Industrial Canada. Th
 </div>
 <div data-role="collapsible">
 <h3>Central Branch</h3>
-<p><strong>Dave Lambrecht</strong><br>
-  <a href="mailto:Dave.lambrecht@veolia.com">dave.lambrecht@veolia.com</a><br>
-  <a href="tel:262.255.6655">262.255.6655</a><br></p>
+<p><strong>John Mueller</strong><br>
+  <a href="mailto:john.mueller@veolia.com">john.mueller@veolia.com</a><br>
+  <a href="tel:262.224.8152">262.224.8152 </a><br></p>
 </div>
 <div data-role="collapsible">
 <h3>Gulf Coast Branch</h3>
@@ -196,9 +213,9 @@ Kevin leads national sales for the Industrial Cleaning group. The contacts below
 
 <div data-role="collapsible">
 <h3>North Region</h3>
-<p> <strong>Dean Croft</strong><br>
-  <a href="mailto:Dean.croft@veolia.com">dean.croft@veolia.com </a><br>
-  <a href="tel:618.931.0014">618.931.0014</a><br></p>
+<p> <strong>Tara Pote</strong><br>
+  <a href="mailto:tara.pote@veolia.com">tara.pote@veolia.com</a><br>
+  <a href="tel:815.302.0783">815.302.0783</a><br></p>
 </div>
 <div data-role="collapsible">
 <h3>South East Region</h3>
@@ -238,6 +255,21 @@ Kevin leads national sales for the Industrial Cleaning group. The contacts below
   <a href="mailto:john.beale@veolia.com">john.beale@veolia.com</a><br>
   <a href="tel:714.262.6517">714.262.6517</a><br></p>
 </div>
+
+<div data-role="collapsible">
+<h3>National Tank &amp; Separations</h3>
+<p><strong>Al Flath 
+  </strong><br>
+  <a href="mailto:al.flath@veolia.com">al.flath@veolia.com </a><br>
+  <a href="tel:606.831.9233">606.831.9233 </a><br></p>
+</div>
+
+<div data-role="collapsible">
+<h3>National Turnaround Services</h3>
+<p><strong>Doug Theriot</strong><br>
+  <a href="mailto:doug.theriot@veolia.com">doug.theriot@veolia.com</a><br>
+  <a href="tel:337.499.9345">337.499.9345 </a><br></p>
+</div>
 </div>
 
 <div data-role="collapsible">
@@ -260,6 +292,22 @@ Kevin leads national sales for the Industrial Cleaning group. The contacts below
   <a href="mailto:michael.daly@veolia.com">michael.daly@veolia.com </a><br>
   <a href="tel:610.229.5661">610.229.5661</a><br></p>
 </div>
+
+<div data-role="collapsible">
+<h3>Strategic Development &amp; Pricing</h3>
+<p><strong>Calvin LeFevre
+  </strong><br>
+  <a href="mailto:calivin.lefevre@veolia.com">calivin.lefevre@veolia.com </a><br>
+  <a href="tel:713.305.2933">713.305.2933 </a><br></p>
+</div>
+
+<div data-role="collapsible">
+<h3>Upstream Oil &amp; Gas</h3>
+<p><strong>Lnsp (Naggs) Nagghappan</strong><br>
+  <a href="mailto:naggs@veolia.com">naggs@veolia.com</a><br>
+  <a href="tel:412.720.9600">412.720.9600</a><br></p>
+</div>
+
 </div>
 <div data-role="collapsible">
 <h2 class="bluebutton">MarCom Contacts</h2>
@@ -288,12 +336,15 @@ Kevin leads national sales for the Industrial Cleaning group. The contacts below
 </div>
 
 
-		<!-- ... -->
-	
-	</div>
-	
-	</div><!-- /content -->
+    <!-- ... -->
+  
+  </div>
+
+
+
+  
+  </div><!-- /content -->
 
 </div>
 
-	
+  

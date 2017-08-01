@@ -33,12 +33,17 @@
         //print_r($newsFeed->getFeedItems());
   ?>
       <div class="newsfeed-content" data-filter="true" data-input="#newsfeedsearch">
-       <?php foreach($newsFeed->getFeedItems() as $feedItem){ ?>
+       <?php foreach($newsFeed->getFeedItems() as $feedItem){ 
+          $itemImage = $feedItem['image'];
+          if(!$itemImage){
+            $itemImage = '/images/news-veolia-thumb.jpg';
+          }
+        ?>
 
           <div class="newsfeed-entry">
-            <div class="newsfeed-itemimage">
+            <div class="newsfeed-itemimage" style="background-image:url(<?php echo $itemImage ?>);">
               <a href="<?php echo $feedItem['url'] ?>" target="_blank"> 
-                <img src="<?php echo $feedItem['image'] ?>" alt="<?php echo htmlspecialchars($feedItem['title']) ?>"  width="150.00" height="72.02380952381">
+                <!--<img src="<?php echo $itemImage ?>" alt="<?php echo htmlspecialchars($feedItem['title']) ?>"  width="150.00" height="72.02380952381">-->
               </a>
             </div>
             <p class="newsfeed-itemfeedtitle"><a href="<?php echo $feedItem['feedUrl'] ?>" target="_blank"><?php echo $feedItem['feedName'] ?></a></p>
