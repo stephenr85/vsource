@@ -8,6 +8,7 @@
         "symfony/cache": "^3.3",
         "guzzle/guzzle": "^3.9",
         "anahkiasen/underscore-php": "^2.0",
-        "symfony/translation": "^3.3"
+        "symfony/translation": "^3.3",
+        "doctrine/orm": "^2.5"
     }
 }

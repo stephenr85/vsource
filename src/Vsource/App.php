@@ -41,6 +41,25 @@ class App {
 		return $this->_db;
 	}
 
+	//Doctrine Database Access Layer
+	private $_dbal = null;
+	public function dbal(){
+		if(!$this->_dbal){
+			$config = new \Doctrine\DBAL\Configuration();
+			// the connection configuration
+			$dbParams = array(
+				'host' 	   => VSOURCE_DB_HOST,
+			    'driver'   => 'pdo_mysql',
+			    'user'     => VSOURCE_DB_USER,
+			    'password' => VSOURCE_DB_PASSWORD,
+			    'dbname'   => VSOURCE_DB_NAME,
+			);
+
+			$this->_dbal = \Doctrine\DBAL\DriverManager::getConnection($dbParams, $config);
+	}
+		return $this->_dbal;
+	}
+
 	private $_requestHeaders = null;
 	public function getRequestHeaders(){
 		if(!$this->_requestHeaders){
@@ -172,6 +191,22 @@ class App {
 			}		
 		}
 		return $result;
+	}
+
+	private $_googleClient;
+	public function getGoogleClient(){
+		if(is_null($this->_googleClient)){
+			$client = new \Google_Client();
+			$client->setApplicationName('lumsites');
+			$client->setAuthConfig(VSOURCE_LUMSITES_AUTH_CONFIG);
+			$client->setAccessType('offline');
+			$client->setIncludeGrantedScopes(true);   // incremental auth ???	
+			$client->setScopes(VSOURCE_LUMSITES_AUTH_SCOPES);
+			
+			$client->setRedirectUri($this->getRootUrl() . 'oauth2callback.php');
+			$this->_googleClient = $client;
+		}
+		return $this->_googleClient;
 	}
 
 	private $_lumSitesAdapter;

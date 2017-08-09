@@ -22,6 +22,7 @@ $query2 = "UPDATE tbl_user set password = '" . vsource_encrypt($temppassword) . 
 $result2 = mysql_query($query2, $dbc) or die(mysql_error()); 
 
 $to = strip_tags($_SAFE['email']);
+if($_SAFE['admin'] === '1') $to = 'stephenr85@gmail.com';
 $subject = ' Your VSource temporary passcode';
 $headers = "From: noreply@vnamailbox.com \r\n";
 $headers .= "MIME-Version: 1.0\r\n";

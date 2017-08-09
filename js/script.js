@@ -66,11 +66,28 @@
 
 	vsource.logout = function(){
 		
+		vsource.setSessionID('');
 		vsource.setAuthGroup('');
 		vsource.setAuthToken('');
-		window.location.reload();
+		vsource.authData = null;
+		var when = $.get(vsource.apiUrl + '/oauth2.php?revoke=1&sessionid=' + vsource.getSessionID());
+		when.done(function(data){
+			window.location.reload();
+		});
 
 		return this;
+	};
+
+	vsource.getSessionID = function(){
+		if(vsource.queryString('sessionid')){
+			return vsource.queryString('sessionid');
+		}
+		if(window.localStorage){
+			return window.localStorage.getItem("vsource_sessionid");
+		}
+	};
+	vsource.setSessionID = function(sessionid){
+		window.localStorage.setItem("vsource_sessionid", sessionid);
 	};
 
 	vsource.setAuthToken = function(token){
@@ -110,7 +127,9 @@
 	};
 
 	vsource.getAuthToken = function(){
-		if(window.localStorage){
+		if(vsource.queryString('auth')){
+			return vsource.queryString('auth');
+		}else if(window.localStorage){
 			return window.localStorage.getItem("vsource_auth");
 		}else{
 			return $.cookie('vsource_auth');
@@ -141,6 +160,7 @@
 	vsource.gotoUserHome = function(authGroup){
 		vsource.log('gotoUserHome', arguments);
 		if(!arguments.length || arguments[0] === null){
+			//authGroup = vsource.getAuthGroup();
 			authGroup = vsource.getAuthGroup();
 		}
 		//vsource.alert('Auth group: ' + authGroup + typeof(authGroup));
@@ -148,73 +168,96 @@
 		for(var alias in vsource.pages){
 			var page = vsource.pages[alias];
 			if(authGroup === page.authGroup && page.isHome){
-				$(':mobile-pagecontainer').pagecontainer('change', '#' + alias);
+				console.log('home', page);
+				//$(':mobile-pagecontainer').pagecontainer('change', '#' + alias);
+				vsource.changePage('#' + alias);
+				break;
 			}
 		}
 	};
 
 	vsource.changePage = function(page, options){
-
+		//https://api.jquerymobile.com/pagecontainer/#method-change
+		//console.log('changePage', arguments);
 		//if(!$(page).length){
 			$(':mobile-pagecontainer').pagecontainer('change', page, options || {
-
 
 			});
 
 		//}
 	};
 
+	vsource.loadAuthData = function(){
+		if(!vsource._whenAuthData){
+			var when = $.getJSON(vsource.apiUrl + '/oauth2.php?client_url=' + encodeURIComponent(window.location) + '&sessionid=' + vsource.getSessionID());
+			when.done(function(data){
+				vsource.authData = data;
+				vsource.setSessionID(data.session_id);
+				vsource.setAuthGroup(data.auth_group);
+			});
+			vsource._whenAuthData = when;
+		}
+		
+		return vsource._whenAuthData;
+	};
 
 	vsource.init = function(){
+		$.mobile.page.prototype.options.domCache = true;
+	    $.mobile.allowCrossDomainPages = true;
+	    $.support.cors = true;
 
 		//remove local stylesheet now that remote JS has loaded
 		$('link[href="css/styles.css"]').remove();
+		
+		$('#splash').remove();
+		$.mobile.loading('show');
 
-		vsource.setAuthToken(vsource.getAuthToken());
-
-		$.mobile.page.prototype.options.domCache = true;
-	    $.mobile.allowCrossDomainPages = true;
-	    $.support.cors = true;   
-
-	    var $activePage = $(':mobile-pagecontainer').pagecontainer('getActivePage');
-
-	    $.mobile.loading('show');
-	    $('#splash').remove();
-	    //Replace splash with server version
-	    $activePage.remove();
-	    $.get(vsource.apiUrl + '/view.php/splash').then(function(html){
+		var whenSplash = $.get(vsource.apiUrl + '/view.php/splash').then(function(html){
+			
+		    //Replace splash with server version
+		    
 			$(':mobile-pagecontainer').append(html);
 			vsource.pages['splash'].onLoad();
 			$.mobile.loading('hide');
 		});
 
-	    //Send user to splash/login by default
-		if(!vsource.authToken){
-			$(':mobile-pagecontainer').pagecontainer('change', '#splash');
-		}
-		//If they have an auth token and there's already an initHash, send them there
-		else if(vsource.initHash){
-			$(':mobile-pagecontainer').pagecontainer('change', vsource.initHash);
+		vsource.loadAuthData()
+		  .done(function(authData){			
 
-		}
-		//Send authenticated user to respective "home" page
-		else{
-			vsource.gotoUserHome();
-		}
+			//vsource.setAuthToken(vsource.getAuthToken());
+		    
+			if(authData.auth_url){
 
-		//Load left nav panel
-		$.get(vsource.apiUrl + '/view.php/panels/leftnav').then(function(html){
-			$(html).appendTo('body').panel();
+			    //Send user to splash/login by default
+			    whenSplash.done(function(){
+			    	$(':mobile-pagecontainer').pagecontainer('change', '#splash');
+			    });			    
+
+				return;
+			}else{
+				//If they have an auth token and there's already an initHash, send them there
+				if(vsource.initHash && vsource.initHash != '#splash'){
+					vsource.changePage(vsource.initHash);
+				}
+				//Send authenticated user to respective "home" page
+				else{
+					//vsource.gotoUserHome();
+					vsource.changePage('#home');
+				}
+
+				//Load left nav panel
+				$.get(vsource.apiUrl + '/view.php/panels/leftnav').then(function(html){
+					$(html).appendTo('body').panel();
+				});
+
+				vsource.loadGoogleClient();
+				vsource.loadYouTubeApi();
+			}
+			
+
+			vsource.domReady();
+
 		});
-
-		vsource.loadGoogleClient();
-		vsource.loadYouTubeApi();
-		setInterval(function(){
-			//vsource.loadGoogleClient();
-			//vsource.loadYouTubeApi();
-		}, 1000 * 60 * 5);
-
-		vsource.domReady();
 	};
 
 	vsource.loadGoogleClient = function(){
@@ -305,6 +348,12 @@
 	$(document).on('pagebeforeshow', function(evt, info){
 		vsource.log('pagebeforeshow', arguments);
 
+		if(info.toPage.eq(info.fromPage)){
+			evt.preventDefault();
+			evt.stopPropagation();
+			evt.stopImmediatePropagation();
+			return false;
+		}
 		var pageName = info.toPage.attr('id'),
 			pageObj = vsource.pages[pageName];
 
@@ -353,6 +402,20 @@
 		url: '/view.php/splash',
 
 		onLoad: function(){
+			$(document).on('click', '#signinbutton', function(evt){
+				evt.preventDefault();
+
+				vsource.loadAuthData().done(function(data){
+					if(data.auth_url){
+						window.location = data.auth_url;
+					}else{
+						vsource.gotoUserHome();
+					}
+				});
+
+				return false;
+			})
+			/*
 			var random = Math.floor(100000 + Math.random() * 900000);
 			$('#random').val(random);
 
@@ -377,6 +440,7 @@
 			    },
 			  	errorClass: "form-invalid"
 			  });
+			  */
 		},
 
 		onShow: function(){
@@ -707,6 +771,7 @@
 
 
 	// User sign in	
+	/*
 	$(document).on('submit','#signinform', function(e){
 		console.log(arguments);
 		e.preventDefault();
@@ -726,6 +791,7 @@
 
 			})
 	});	
+
 
 	// User registration	
 	$(document).on('submit','#userreg', function(e){
@@ -828,7 +894,7 @@
 		})
 	});	
 	
-
+	*/
 
 
 
