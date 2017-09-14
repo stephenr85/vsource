@@ -12,7 +12,7 @@ define('VSOURCE_LOCALE', 'en_US');
 define('VSOURCE_LUMSITES_AUTH_CONFIG', 'private/client_secret_861547954802-5fso73p0o2mp18frr8keg1jjmarkoddc.apps.googleusercontent.com.json');
 define('VSOURCE_LUMSITES_AUTH_SCOPES', 'https://www.googleapis.com/auth/userinfo.email');
 define('VSOURCE_LUMSITES_AUTH_SUBJECT', 'us.vna.vsource.mailbox@veolia.com');
-define('VSOURCE_LUMSITES_AUTH_REFRESH', '1/N8q7bq3aINVYG9i_wP68GU7HBsdw_R79hDykAeEIQoY');
+define('VSOURCE_LUMSITES_AUTH_REFRESH', '1/CujC6y9bekaXz-_yRQRsybnAueJBUMmBXLH0YuNfUCQ');
 
 if($_SERVER['HTTP_HOST'] == 'vsource.local'){
 	define('VSOURCE_VIEW_ROOT', '/');
