@@ -32,11 +32,11 @@ return array(
 	'more_instagram_url' => 'https://www.instagram.com/veolianorthamerica/',
 	'more_veolia_url' => 'http://planet.veolianorthamerica.com/',
 
-	'more_waste_url' => '',
-	'more_water_url' => '',
-	'more_energy_url' => '',
-	'more_cleaning_url' => '',
-	'more_regeneration_url' => '',
+	'more_waste_url' => 'http://www.veolianorthamerica.com/en/our-services/waste-services',
+	'more_water_url' => 'http://www.veolianorthamerica.com/en/our-services/water-services',
+	'more_energy_url' => 'http://www.veolianorthamerica.com/en/our-services/energy-services',
+	'more_cleaning_url' => 'http://www.veolianorthamerica.com/en/our-services/cleaning-services',
+	'more_regeneration_url' => 'http://www.veolianorthamerica.com/en/our-services/regeneration-services',
 
 	/*
 	 * news 
