@@ -9,6 +9,13 @@
 		
 	</div><!-- /header -->
 <div role="main" class="ui-content">
+
+<div class="row">
+<div class="col-xs-12 text-center">
+<a href="#health_safety_week" data-transition="slideup" class="ui-btn ui-btn-inline redbg" style="white-space:normal;"><?php echo htmlentities(t('health_safety_week_button')) ?> <i class="fa fa-angle-right"></i></a>
+</div>
+</div>
+
 <div class="row">
 <div class="col-xs-6 menubutton text-center">
 <a href="#news" data-transition="slideup"><img src="images/news.png" class="home-icon" width="60%"><?php echo t('News') ?></a>

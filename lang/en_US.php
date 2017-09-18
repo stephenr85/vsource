@@ -8,6 +8,17 @@ return array(
 
 	'feedback_response' => 'We\'ll use your feedback <br> in future versions.',
 
+
+	/*
+	 * home 
+	 */
+	'health_safety_week_button' => 'International Health & Safety Week 2017',
+
+	/*
+	 * health_safety_week 
+	 */
+	'health_safety_week_title' => 'International Health & Safety Week',
+
 	/*
 	 * join 
 	 */
