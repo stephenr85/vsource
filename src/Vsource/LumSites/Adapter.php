@@ -20,7 +20,7 @@ class Adapter {
 
 	public $isDebug = FALSE;
 	public $isCaching = TRUE;
-	public $cacheSeconds = 60;
+	public $cacheSeconds = 3600;
 
 	public $customerId = '5649391675244544';
 	public $instanceId = '5183329204699136';
@@ -142,7 +142,8 @@ class Adapter {
 			$this->cacheSeconds = $seconds;
 		}
 		if($isCaching){
-			$this->client->setCache($this->getApp()->cache->adapter);
+			$cache = new \Vsource\Cache($this->cacheSeconds);
+			$this->client->setCache($cache->adapter);
 			$this->httpClient = $this->client->authorize();
 		}else{
 			$this->client->setCache(NULL);

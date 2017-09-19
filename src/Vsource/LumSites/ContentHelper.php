@@ -24,6 +24,7 @@ class ContentHelper {
 		$app = $this->getApp();
 		$lang = $this->getLanguage();
 		$adapter = $this->getAdapter();
+		$adapter->cache(!$this->isDebug);
 		$adapter->debug($this->isDebug);
 
 		$defaults = array(

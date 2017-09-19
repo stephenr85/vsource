@@ -28,6 +28,7 @@ class SalesContactsFeed {
 	public function loadOriginalData(){
 
 		$adapter = $this->getApp()->getLumSitesAdapter();
+		$adapter->cache(!$this->isDebug);
 		$adapter->debug($this->isDebug);
 		$params = array();
 		$defaults = array(
