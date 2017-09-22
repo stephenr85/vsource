@@ -9,7 +9,7 @@ if($finalPath){
 	unset($cacheParams['auth']);
 	$cacheKey = $app->cache->getKey(basename(__FILE__), $finalPath, http_build_query($cacheParams));
 	echo "<!-- $cacheKey -->";
-	if($app->cache->has($cacheKey)){
+	if($app->cache->has($cacheKey) && VSOURCE_VIEW_CACHE_ENABLED){
 		$output = $app->cache->get($cacheKey);
 	}else{
 		$output = $view->render($finalPath);
