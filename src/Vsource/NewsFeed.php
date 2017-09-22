@@ -69,6 +69,7 @@ class NewsFeed {
 
 	public function loadLumSitesNews($params = array()){
 		$adapter = $this->getApp()->getLumSitesAdapter();
+		$adapter->cache(!$this->isDebug);
 		$adapter->debug($this->isDebug);
 		//$adapter->debug(true);
 
@@ -118,6 +119,7 @@ class NewsFeed {
 
 	public function loadLumSitesNewsItem($slug){
 		$adapter = $this->getApp()->getLumSitesAdapter();
+		$adapter->cache(!$this->isDebug);
 		$adapter->debug($this->isDebug);
 		$params = array();
 		$defaults = array(

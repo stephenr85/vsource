@@ -1,6 +1,6 @@
 <?php 
 
-require_once 'vendor/autoload.php';
+require_once('../_init.php');
 
 $client = new Google_Client();
 $client->setApplicationName('lumsites');
@@ -8,7 +8,7 @@ $client->setApplicationName('lumsites');
 $authMode = 1;
 
 if($authMode == 0){
-	$client->setAuthConfig('private/googleapikey.json');
+	$client->setAuthConfig('../private/googleapikey.json');
 	//$client->setAuthConfig('private/googleapitoken.json');
 	$scopes = array('https://www.googleapis.com/auth/userinfo.email');
 	$client->setScopes(implode(' ', $scopes));
@@ -19,13 +19,14 @@ if($authMode == 0){
 }else if($authMode == 1){
 	// https://developers.google.com/oauthplayground/
 	$scopes = array('https://www.googleapis.com/auth/userinfo.email');
-	$client->setAuthConfig('private/client_secret_861547954802-5fso73p0o2mp18frr8keg1jjmarkoddc.apps.googleusercontent.com.json');
+	$client->setAuthConfig('../private/client_secret_861547954802-5fso73p0o2mp18frr8keg1jjmarkoddc.apps.googleusercontent.com.json');
 	$client->setScopes(implode(' ', $scopes));
 	$client->setAccessType('offline');
 
 	//$token = $client->fetchAccessTokenWithAuthCode('4/aCIdaz3q-1jECXzfKiYMlkhIidNJf3oxW-88q_7WVaA');
 	$client->setSubject('us.vna.vsource.mailbox@veolia.com');
-	$token = $client->refreshToken('1/N8q7bq3aINVYG9i_wP68GU7HBsdw_R79hDykAeEIQoY');
+	$token = $client->refreshToken(VSOURCE_LUMSITES_AUTH_REFRESH);
+	//$token = $client->refreshToken('1/N8q7bq3aINVYG9i_wP68GU7HBsdw_R79hDykAeEIQoY');
 	$client->setAccessToken($token['access_token']);
 
 	echo "\n\n======== AUTH TOKEN =========\n";

@@ -9,9 +9,12 @@ class Cache {
 	
 	public $simple;
 	public $adapter;
-	private $cacheSeconds = 60;
+	private $cacheSeconds = 3600; //60 minutes
 
-	public function __construct(){
+	public function __construct($cacheSeconds = NULL){
+		if(!is_null($cacheSeconds)){
+			$this->cacheSeconds = $cacheSeconds;
+		}
 		$this->simple = new FilesystemCache('vsource', $this->cacheSeconds);
 		$this->adapter = new FilesystemAdapter('vsource', $this->cacheSeconds);
 	}

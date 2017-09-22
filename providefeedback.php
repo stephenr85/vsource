@@ -8,7 +8,7 @@ $feedback = $_SAFE['feedbackform'];
 //$feedbackemail = $_SAFE['feedbackemail'];
 $feedbackemail = $user['email'];
 
-$to = 'matt.demo@veolia.com';
+$to = 'braden.becker@veolia.com';
 $subject = 'VSOURCE Mobile App Feedback';
 $headers = "From: noreply@vnamailbox.com \r\n";
 $headers .= "MIME-Version: 1.0\r\n";

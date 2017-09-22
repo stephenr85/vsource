@@ -49,7 +49,7 @@
 	Recommandez un employé et gagnez jusqu’à 1 000 dollars.
 
 	<br><br>
-	<a href="mailto:matt.demo@veolia.com?Subject=<?php echo htmlspecialchars(t('more_details_email_title')) ?>&body=<?php echo htmlspecialchars(t('more_details_email_body')) ?>" class="btn redbg btn-lg"><?php echo t('GET DETAILS') ?></a>
+	<a href="mailto:braden.becker@veolia.com?Subject=<?php echo htmlspecialchars(t('more_details_email_title')) ?>&body=<?php echo htmlspecialchars(t('more_details_email_body')) ?>" class="btn redbg btn-lg"><?php echo t('GET DETAILS') ?></a>
 	
 	<br><br>
 	

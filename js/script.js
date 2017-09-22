@@ -763,7 +763,14 @@
 	};
 
 	
+	vsource.pages['health_safety_week'] = {
+		url: '/view.php/health_safety_week',
 
+		onLoad: function(){
+
+			
+		}
+	};
 	
 
 	

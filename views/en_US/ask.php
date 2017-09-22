@@ -18,7 +18,7 @@
 <br><br>
 <?php echo t('Ask us and we’ll do our best to answer. Questions are not anonymous.') ?><br><br> 
 <div class="text-center">
-<a href="mailto:matt.demo@veolia.com?subject=<?php echo t('I have a question about Veolia (submitted via VSOURCE)') ?>"  class="ui-btn ui-btn-inline redbg"><?php echo t('ASK QUESTION') ?></a> 
+<a href="mailto:braden.becker@veolia.com?subject=<?php echo t('I have a question about Veolia (submitted via VSOURCE)') ?>"  class="ui-btn ui-btn-inline redbg"><?php echo t('ASK QUESTION') ?></a> 
 </div>
 		
 	</div>

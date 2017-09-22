@@ -64,6 +64,16 @@ return array(
 	'join_suggest_group_email_body' => 'Je souhaiterais proposer un groupe Veolia. Voici ma proposition – pourriez-vous m’expliquer comment  cela fonctionne?',
 
 	/*
+	 * health_safety_week 
+	 */
+	'health_safety_week_title' => 'Semaine internationale de la santé et de la sécurité',
+	
+	/*
+	 * home 
+	 */
+	'health_safety_week_button' => 'Semaine internationale de la santé et de la sécurité',
+
+	/*
 	 * login 
 	 */
 	'login_intro' => 'Votre Outil d\'information nord-américain',
